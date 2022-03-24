@@ -60,3 +60,30 @@ Voici donc le schéma de nos données et leurs liens :
 ![Dans .model/Données.png](../.model/Données.png)
 
 *Nous avons délibérément omis de lier **ekaly** à une autre entité car globalement, il n'interagi avec aucun élément mais se contente de faire du monitoring.*
+
+## Les processus et services
+
+Nous allons séparer notre code en 2 principaux services, pour :
+
+- l'identification
+- les données
+
+### L'identification
+
+Ici nous gèrerons les processus d'identifications tels que l'inscription ou la connexion.
+
+Puisque ce service ne sera utilisé qu'1 fois par session (en général) et ne sucite pas d'échange fréquent d'une quantité plus ou moins grande d'information, nous allons l'inscrire dans une simple API REST.
+
+### Les données
+
+Ici, nous allons potentiellement échanger, et fréquement , beaucoup d'information. Pour cela nous utiliseront une API GraphQL pour faciliter les requêtes et les réponses.
+
+## Nos outils
+
+Bien que les librairies sont listés dans package.json, et que la stack à utiliser à été choisi dans les consignes, nous allons quand-même expliquer ici le choix pour certains.
+
+### ORM : Prisma
+
+Nous n'allons pas utiliser le pilote natif de MongoDB. Au lieu de celà nous allons utiliser [Prisma](https://www.prisma.io/), un outils complet pour gérer l'intégration, la modélisation et l'interraction entre notre code et notre base de donnée.
+
+[La documentation est ici](https://www.prisma.io/docs/)
