@@ -17,6 +17,7 @@
   },
   "private": true,
   "dependencies": {
+    "@prisma/client": "^3.11.1",
     "apollo-server-core": "^3.6.5",
     "apollo-server-express": "^3.6.5",
     "express": "^4.17.3",
