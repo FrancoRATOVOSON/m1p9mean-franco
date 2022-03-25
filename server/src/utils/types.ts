@@ -1,7 +1,5 @@
-import { PrismaClient, Client, Admin, Restaurant, Livreur } from '../database'
+import { Client, Admin, Restaurant, Livreur } from '../../generated'
 
 export const def = ''
 
-export const client = new PrismaClient()
-
-export interface Utilisateur {}
+export type Utilisateur = Client | Admin | Restaurant | Livreur
