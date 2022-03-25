@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["mongoDb"]
+  output = "../src/database/"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  email String
+  motDePasse String
+}
+
+model Client {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  nom String
+  prenom String
+  adresse String
+  email String
+  motDePasse String
+  commandes Commande[]
+}
+
+model Restaurant {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  nom String
+  adresse String
+  email String
+  motDePasse String
+  menus Menu[]
+}
+
+model Livreur {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  nom String
+  prenom String
+  email String
+  motDePasse String
+  livraisons Commande[]
+}
+
+model Menu {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  nom String
+  prix Int
+  visible Boolean @default(true)
+  restaurantId String @db.ObjectId
+  restaurant Restaurant @relation(fields: [restaurantId], references: [id])
+  commandeIds String[] @db.ObjectId
+}
+
+model Commande {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  date DateTime
+  clientId String @db.ObjectId
+  client Client @relation(fields: [clientId], references: [id])
+  details CommandeDetails[]
+  etat Etat @default(ATTENTE)
+  livreurId String? @db.ObjectId
+  livreur Livreur? @relation(fields: [livreurId], references: [id])
+}
+
+enum Etat {
+  ATTENTE
+  LIVREE
+  ANNULEE
+}
+
+type CommandeDetails {
+  // Since relations inside embedded documents are not supported yet
+  // We'll have to implement the querying function ourself
+  menuId String @db.ObjectId
+  quantite Int
+}

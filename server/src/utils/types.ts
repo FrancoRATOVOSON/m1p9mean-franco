@@ -1,7 +1,7 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, Client, Admin, Restaurant, Livreur } from '../database'
 
 export const def = ''
 
 export const client = new PrismaClient()
 
-// export interface Utilisateur extends
+export interface Utilisateur {}
