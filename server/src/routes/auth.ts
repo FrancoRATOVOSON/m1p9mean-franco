@@ -3,6 +3,6 @@ import { login } from '../controllers/auth'
 
 const router = express.Router()
 
-router.post('/login/:userType', login)
+router.post('/signup/:userType', login)
 
 export default router

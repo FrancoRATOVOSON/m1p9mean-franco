@@ -1,5 +1,5 @@
-import { Client, Admin, Restaurant, Livreur } from '../../generated'
+import { IAdmin, IClient, ILivreur, IRestaurant } from './interfaces'
 
 export const def = ''
 
-export type Utilisateur = Client | Admin | Restaurant | Livreur
+export type UserType = IAdmin | IClient | ILivreur | IRestaurant
