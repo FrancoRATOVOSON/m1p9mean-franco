@@ -1,5 +1,4 @@
 import { UserTypeError } from './errors'
-import { UserType } from './types'
 import {
   toAdminData,
   toClientData,
@@ -18,7 +17,7 @@ export const def = ''
 export async function createUser(
   userType: string,
   userData: any
-): Promise<UserType> {
+): Promise<any> {
   switch (userType.toUpperCase()) {
     case 'ADMIN':
       return createAdmin(toAdminData(userData))

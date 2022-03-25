@@ -1,19 +1,21 @@
-import { Admin, Client, Livreur, Restaurant } from '@prisma/client'
+import { Admin, Client, Compte, Livreur, Restaurant } from '@prisma/client'
 
 export const def = ''
 
-export interface IAdmin extends Omit<Admin, 'id'> {
+interface ICompte extends Compte {}
+
+export interface IAdmin extends Omit<Admin, 'id'>, ICompte {
   id?: string
 }
 
-export interface IClient extends Omit<Client, 'id'> {
+export interface IClient extends Omit<Client, 'id'>, ICompte {
   id?: string
 }
 
-export interface ILivreur extends Omit<Livreur, 'id'> {
+export interface ILivreur extends Omit<Livreur, 'id'>, ICompte {
   id?: string
 }
 
-export interface IRestaurant extends Omit<Restaurant, 'id'> {
+export interface IRestaurant extends Omit<Restaurant, 'id'>, ICompte {
   id?: string
 }

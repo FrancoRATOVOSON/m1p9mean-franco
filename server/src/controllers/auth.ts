@@ -9,6 +9,7 @@ export const login: RequestHandler = async (req: Request, res: Response) => {
     const createdUser = await createUser(userType, req.body)
     res.status(200).send(createdUser as Omit<typeof createdUser, 'password'>)
   } catch (error) {
+    console.error(error)
     res.status(400).send(error)
   }
 }

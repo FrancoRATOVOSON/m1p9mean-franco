@@ -4,7 +4,7 @@
   "description": "Server side for the MEAN Stack E-Kaly service.",
   "main": "src/index.ts",
   "scripts": {
-    "start": "ts-node-dev --respawn src/index.ts",
+    "dev": "nodemon",
     "build": "tsc"
   },
   "repository": {
