@@ -12,7 +12,25 @@ import {
   createRestaurant,
 } from '../database/users'
 
-export const def = ''
+export function returnUser(userType: string, user: any) {
+  const userToReturn: any = {}
+  const { id, email } = user
+  switch (userType.toUpperCase()) {
+    case 'ADMIN':
+      break
+    case 'LIVREUR':
+    case 'CLIENT':
+      userToReturn.nom = user.nom
+      userToReturn.prenom = user.prenom
+      break
+    case 'RESTAURANT':
+      userToReturn.nom = user.nom
+      break
+    default:
+      throw new UserTypeError(userType)
+  }
+  return { id, email, ...userToReturn }
+}
 
 export async function createUser(
   userType: string,
@@ -28,6 +46,6 @@ export async function createUser(
     case 'RESTAURANT':
       return createRestaurant(toRestaurantData(userData))
     default:
-      throw new UserTypeError()
+      throw new UserTypeError(userType)
   }
 }

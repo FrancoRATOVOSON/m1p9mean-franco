@@ -1,0 +1,34 @@
+{
+  "users": {
+    "clients": [
+      {
+        "id": "623ede59e435b03d2ad0e352",
+        "nom": "Lauren",
+        "prenom": "Mason",
+        "adresse": "9845 Church Lane st, Carlow city, Louth, Ireland",
+        "email": "lauren.mason@example.com",
+        "motDePasse": "dagger"
+      },
+      {
+        "id": "623edf91a2e668121540f6e3",
+        "nom": "Eliza",
+        "prenom": "Webb",
+        "adresse": "8026 West Street, Clane, Dublin City, Ireland",
+        "email": "eliza.webb@example.com",
+        "motDePasse": "ebony"
+      }
+    ],
+    "admin": [
+      {
+        "id": "623ee4ced01141b7a7a608b6",
+        "email": "francislene.ribeiro@example.com",
+        "motDePasse": "phillip"
+      },
+      {
+        "id": "623ee4e9d01141b7a7a608b8",
+        "email": "josefine.christensen@example.com",
+        "motDePasse": "bigpimp"
+      }
+    ]
+  }
+}

@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 export class UserTypeError extends Error {
-  constructor() {
-    super('User type not defined')
+  constructor(userType: string) {
+    super(`User type <${userType}> not defined`)
   }
 }
 

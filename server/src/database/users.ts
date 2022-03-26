@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import { IAdmin, IClient, ILivreur, IRestaurant } from '../utils/interfaces'
+import { hashPassword } from '../utils/tools'
 
 export async function createAdmin(admin: IAdmin) {
   const prismaClient = new PrismaClient()
@@ -9,7 +10,7 @@ export async function createAdmin(admin: IAdmin) {
       ...adminData,
       compte: {
         email,
-        motDePasse,
+        motDePasse: await hashPassword(motDePasse),
       },
     },
   })
@@ -23,7 +24,7 @@ export async function createClient(client: IClient) {
       ...clientData,
       compte: {
         email,
-        motDePasse,
+        motDePasse: await hashPassword(motDePasse),
       },
     },
   })
@@ -36,7 +37,7 @@ export async function createLivreur(livreur: ILivreur) {
       ...livreurData,
       compte: {
         email,
-        motDePasse,
+        motDePasse: await hashPassword(motDePasse),
       },
     },
   })
@@ -49,7 +50,7 @@ export async function createRestaurant(restaurant: IRestaurant) {
       ...restaurantData,
       compte: {
         email,
-        motDePasse,
+        motDePasse: await hashPassword(motDePasse),
       },
     },
   })
