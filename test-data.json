@@ -1,5 +1,17 @@
 {
   "users": {
+    "admin": [
+      {
+        "id": "623ee4ced01141b7a7a608b6",
+        "email": "francislene.ribeiro@example.com",
+        "motDePasse": "phillip"
+      },
+      {
+        "id": "623ee4e9d01141b7a7a608b8",
+        "email": "josefine.christensen@example.com",
+        "motDePasse": "bigpimp"
+      }
+    ],
     "clients": [
       {
         "id": "623ede59e435b03d2ad0e352",
@@ -18,16 +30,36 @@
         "motDePasse": "ebony"
       }
     ],
-    "admin": [
+    "livreur": [
       {
-        "id": "623ee4ced01141b7a7a608b6",
-        "email": "francislene.ribeiro@example.com",
-        "motDePasse": "phillip"
+        "id": "623ee8a92e514cc5c4ae62b1",
+        "nom": "Simon",
+        "prenom": "Zühlke",
+        "email": "simon.zuhlke@example.com",
+        "motDePasse": "grendel"
       },
       {
-        "id": "623ee4e9d01141b7a7a608b8",
-        "email": "josefine.christensen@example.com",
-        "motDePasse": "bigpimp"
+        "id": "623ee8ce2e514cc5c4ae62b3",
+        "nom": "Alex",
+        "prenom": "Shelton",
+        "email": "alex.shelton@example.com",
+        "motDePasse": "789987"
+      }
+    ],
+    "restaurant": [
+      {
+        "id": "623eea392e514cc5c4ae62b5",
+        "nom": "Palm Restaurant",
+        "adresse": "837 2 Avenue, Manhattan",
+        "email": "felix.christensen@example.com",
+        "motDePasse": "313131"
+      },
+      {
+        "id": "623eea532e514cc5c4ae62b7",
+        "nom": "Morris Park Bake Shop",
+        "adresse": "1007 Morris Park Ave, Bronx",
+        "email": "falk.welde@example.com",
+        "motDePasse": "draven"
       }
     ]
   }

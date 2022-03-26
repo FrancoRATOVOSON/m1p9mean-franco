@@ -32,7 +32,7 @@ export async function createClient(client: IClient) {
 export async function createLivreur(livreur: ILivreur) {
   const prismaClient = new PrismaClient()
   const { email, motDePasse, ...livreurData } = livreur
-  return prismaClient.admin.create({
+  return prismaClient.livreur.create({
     data: {
       ...livreurData,
       compte: {
@@ -45,7 +45,7 @@ export async function createLivreur(livreur: ILivreur) {
 export async function createRestaurant(restaurant: IRestaurant) {
   const prismaClient = new PrismaClient()
   const { email, motDePasse, ...restaurantData } = restaurant
-  return prismaClient.admin.create({
+  return prismaClient.restaurant.create({
     data: {
       ...restaurantData,
       compte: {

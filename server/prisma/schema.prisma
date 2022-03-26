@@ -31,20 +31,20 @@ model Client {
   commandes Commande[]
 }
 
-model Restaurant {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  nom String
-  adresse String
-  compte Compte
-  menus Menu[]
-}
-
 model Livreur {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   nom String
   prenom String
   compte Compte
   livraisons Commande[]
+}
+
+model Restaurant {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  nom String
+  adresse String
+  compte Compte
+  menus Menu[]
 }
 
 model Menu {
