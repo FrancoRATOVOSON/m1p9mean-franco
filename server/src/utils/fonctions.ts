@@ -53,11 +53,11 @@ export async function createUser(
 
 export async function isUserExists(
   userType: string,
-  userData: any
+  userMail: string
 ): Promise<boolean> {
   switch (userType.toUpperCase()) {
     case 'ADMIN':
-      return !isAdminExists(userData.email) /*
+      return isAdminExists(userMail) /*
     case 'CLIENT':
       return isClientExists(toClientData(userData))
     case 'LIVREUR':

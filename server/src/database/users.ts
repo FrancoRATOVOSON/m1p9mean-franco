@@ -60,13 +60,8 @@ export async function isAdminExists(email: string) {
   const prismaClient = new PrismaClient()
   const results = await prismaClient.admin.findRaw({
     filter: {
-      compte: {
-        email,
-      },
+      'compte.email': email,
     },
   })
-  console.log('Results are:')
-
-  console.log(results)
-  return !results
+  return results.length > 0
 }
