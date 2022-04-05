@@ -1,0 +1,66 @@
+{
+  "users": {
+    "admin": [
+      {
+        "id": "623ee4ced01141b7a7a608b6",
+        "email": "francislene.ribeiro@example.com",
+        "motDePasse": "phillip"
+      },
+      {
+        "id": "6249e0e85c437c526b662714",
+        "email": "josefine.christensen@example.com",
+        "motDePasse": "bigpimp"
+      }
+    ],
+    "clients": [
+      {
+        "id": "623ede59e435b03d2ad0e352",
+        "nom": "Lauren",
+        "prenom": "Mason",
+        "adresse": "9845 Church Lane st, Carlow city, Louth, Ireland",
+        "email": "lauren.mason@example.com",
+        "motDePasse": "dagger"
+      },
+      {
+        "id": "623edf91a2e668121540f6e3",
+        "nom": "Eliza",
+        "prenom": "Webb",
+        "adresse": "8026 West Street, Clane, Dublin City, Ireland",
+        "email": "eliza.webb@example.com",
+        "motDePasse": "ebony"
+      }
+    ],
+    "livreur": [
+      {
+        "id": "623ee8a92e514cc5c4ae62b1",
+        "nom": "Simon",
+        "prenom": "Zühlke",
+        "email": "simon.zuhlke@example.com",
+        "motDePasse": "grendel"
+      },
+      {
+        "id": "623ee8ce2e514cc5c4ae62b3",
+        "nom": "Alex",
+        "prenom": "Shelton",
+        "email": "alex.shelton@example.com",
+        "motDePasse": "789987"
+      }
+    ],
+    "restaurant": [
+      {
+        "id": "623eea392e514cc5c4ae62b5",
+        "nom": "Palm Restaurant",
+        "adresse": "837 2 Avenue, Manhattan",
+        "email": "felix.christensen@example.com",
+        "motDePasse": "313131"
+      },
+      {
+        "id": "623eea532e514cc5c4ae62b7",
+        "nom": "Morris Park Bake Shop",
+        "adresse": "1007 Morris Park Ave, Bronx",
+        "email": "falk.welde@example.com",
+        "motDePasse": "draven"
+      }
+    ]
+  }
+}
