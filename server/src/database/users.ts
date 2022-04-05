@@ -52,38 +52,54 @@ export async function createRestaurant(restaurant: IRestaurant) {
   })
 }
 
-export async function isAdminExists(email: string) {
-  const results = await prisma.admin.findRaw({
-    filter: {
-      'compte.email': email,
+export async function findAdminByMail(email: string) {
+  const admin = await prisma.admin.findFirst({
+    where: {
+      compte: {
+        is: {
+          email,
+        },
+      },
     },
   })
-  return results.length > 0
+  return admin
 }
 
-export async function isClientExists(email: string) {
-  const results = await prisma.client.findRaw({
-    filter: {
-      'compte.email': email,
+export async function findClientByMail(email: string) {
+  const client = await prisma.client.findFirst({
+    where: {
+      compte: {
+        is: {
+          email,
+        },
+      },
     },
   })
-  return results.length > 0
+  return client
 }
 
-export async function isLivreurExists(email: string) {
-  const results = await prisma.livreur.findRaw({
-    filter: {
-      'compte.email': email,
+export async function findLivreurByMail(email: string) {
+  const livreur = await prisma.livreur.findFirst({
+    where: {
+      compte: {
+        is: {
+          email,
+        },
+      },
     },
   })
-  return results.length > 0
+  return livreur
 }
 
-export async function isRestaurantExists(email: string) {
-  const results = await prisma.restaurant.findRaw({
-    filter: {
-      'compte.email': email,
+export async function findRestaurantByMail(email: string) {
+  const restaurant = await prisma.restaurant.findFirst({
+    where: {
+      compte: {
+        is: {
+          email,
+        },
+      },
     },
   })
-  return results.length > 0
+  return restaurant
 }

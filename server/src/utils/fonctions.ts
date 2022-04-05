@@ -10,10 +10,10 @@ import {
   createClient,
   createLivreur,
   createRestaurant,
-  isAdminExists,
-  isClientExists,
-  isLivreurExists,
-  isRestaurantExists,
+  findAdminByMail,
+  findClientByMail,
+  findLivreurByMail,
+  findRestaurantByMail,
 } from '../database/users'
 
 export function returnUser(userType: string, user: any) {
@@ -56,34 +56,26 @@ export async function createUser(
 
 export async function isUserExists(
   userType: string,
-  userMail: string
+  userMail
 ): Promise<boolean> {
+  const result = await findUserByMail(userType, userMail)
+  return result
+}
+
+export async function findUserByMail(
+  userType: string,
+  userMail: string
+): Promise<any> {
   switch (userType.toUpperCase()) {
     case 'ADMIN':
-      return isAdminExists(userMail)
+      return findAdminByMail(userMail)
     case 'CLIENT':
-      return isClientExists(userMail)
+      return findClientByMail(userMail)
     case 'LIVREUR':
-      return isLivreurExists(userMail)
+      return findLivreurByMail(userMail)
     case 'RESTAURANT':
-      return isRestaurantExists(userMail)
+      return findRestaurantByMail(userMail)
     default:
       throw new UserTypeError(userType)
   }
 }
-/*
-export async function logUser(userType: string, userData: any): Promise<any> {
-  switch (userType.toUpperCase()) {
-    case 'ADMIN':
-      return logAdmin(toAdminData(userData))
-    case 'CLIENT':
-      return logClient(toClientData(userData))
-    case 'LIVREUR':
-      return logLivreur(toLivreurData(userData))
-    case 'RESTAURANT':
-      return logRestaurant(toRestaurantData(userData))
-    default:
-      throw new UserTypeError(userType)
-  }
-}
-*/

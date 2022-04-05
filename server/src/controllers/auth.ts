@@ -2,9 +2,10 @@ import { Response, Request, RequestHandler } from 'express'
 import {
   createUser,
   returnUser,
-  // logUser,
   isUserExists,
+  findUserByMail,
 } from '../utils/fonctions'
+import { comparePassword } from '../utils/tools'
 
 export const signup: RequestHandler = async (req: Request, res: Response) => {
   const { userType } = req.params
@@ -25,18 +26,20 @@ export const signup: RequestHandler = async (req: Request, res: Response) => {
 
 export const login: RequestHandler = async (req: Request, res: Response) => {
   const { userType } = req.params
+  const { email, motDePasse } = req.body
   try {
-    if (!(await isUserExists(userType, req.body.email))) {
-      res.status(404).send('User not found')
+    const userFound = await findUserByMail(userType, email)
+    if (!userFound) {
+      res.status(400).send("User doesn't exists")
       return
     }
-    res.status(200).send('Connected')
-    // const loggedUser = await logUser(userType, req.body)
-    // res.status(200).send(returnUser(userType, loggedUser))
+    if (await comparePassword(motDePasse, userFound.compte.motDePasse))
+      res.status(200).send(returnUser(userType, userFound))
+    else res.status(400).send('Wrong Password')
   } catch (error) {
     // TODO: don't forget to remove 'console.error' before send in prod
     // eslint-disable-next-line no-console
     console.error(error)
-    res.status(400).send(error)
+    res.status(400).send('Something went wrong, please verify your request')
   }
 }
