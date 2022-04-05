@@ -1,11 +1,10 @@
-import { PrismaClient } from '@prisma/client'
 import { IAdmin, IClient, ILivreur, IRestaurant } from '../utils/interfaces'
 import { hashPassword } from '../utils/tools'
+import prisma from './prisma'
 
 export async function createAdmin(admin: IAdmin) {
-  const prismaClient = new PrismaClient()
   const { email, motDePasse, ...adminData } = admin
-  return prismaClient.admin.create({
+  return prisma.admin.create({
     data: {
       ...adminData,
       compte: {
@@ -17,9 +16,8 @@ export async function createAdmin(admin: IAdmin) {
 }
 
 export async function createClient(client: IClient) {
-  const prismaClient = new PrismaClient()
   const { email, motDePasse, ...clientData } = client
-  return prismaClient.client.create({
+  return prisma.client.create({
     data: {
       ...clientData,
       compte: {
@@ -30,9 +28,8 @@ export async function createClient(client: IClient) {
   })
 }
 export async function createLivreur(livreur: ILivreur) {
-  const prismaClient = new PrismaClient()
   const { email, motDePasse, ...livreurData } = livreur
-  return prismaClient.livreur.create({
+  return prisma.livreur.create({
     data: {
       ...livreurData,
       compte: {
@@ -43,9 +40,8 @@ export async function createLivreur(livreur: ILivreur) {
   })
 }
 export async function createRestaurant(restaurant: IRestaurant) {
-  const prismaClient = new PrismaClient()
   const { email, motDePasse, ...restaurantData } = restaurant
-  return prismaClient.restaurant.create({
+  return prisma.restaurant.create({
     data: {
       ...restaurantData,
       compte: {
@@ -57,8 +53,34 @@ export async function createRestaurant(restaurant: IRestaurant) {
 }
 
 export async function isAdminExists(email: string) {
-  const prismaClient = new PrismaClient()
-  const results = await prismaClient.admin.findRaw({
+  const results = await prisma.admin.findRaw({
+    filter: {
+      'compte.email': email,
+    },
+  })
+  return results.length > 0
+}
+
+export async function isClientExists(email: string) {
+  const results = await prisma.client.findRaw({
+    filter: {
+      'compte.email': email,
+    },
+  })
+  return results.length > 0
+}
+
+export async function isLivreurExists(email: string) {
+  const results = await prisma.livreur.findRaw({
+    filter: {
+      'compte.email': email,
+    },
+  })
+  return results.length > 0
+}
+
+export async function isRestaurantExists(email: string) {
+  const results = await prisma.restaurant.findRaw({
     filter: {
       'compte.email': email,
     },

@@ -11,6 +11,9 @@ import {
   createLivreur,
   createRestaurant,
   isAdminExists,
+  isClientExists,
+  isLivreurExists,
+  isRestaurantExists,
 } from '../database/users'
 
 export function returnUser(userType: string, user: any) {
@@ -57,13 +60,13 @@ export async function isUserExists(
 ): Promise<boolean> {
   switch (userType.toUpperCase()) {
     case 'ADMIN':
-      return isAdminExists(userMail) /*
+      return isAdminExists(userMail)
     case 'CLIENT':
-      return isClientExists(toClientData(userData))
+      return isClientExists(userMail)
     case 'LIVREUR':
-      return isLivreurExists(toLivreurData(userData))
+      return isLivreurExists(userMail)
     case 'RESTAURANT':
-      return isRestaurantExists(toRestaurantData(userData)) */
+      return isRestaurantExists(userMail)
     default:
       throw new UserTypeError(userType)
   }
