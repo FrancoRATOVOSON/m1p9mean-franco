@@ -1,6 +1,10 @@
 import { booleanArg, extendType, intArg, list, nonNull, stringArg } from 'nexus'
+import { createCommande, updateCommande } from '../../database/commandes'
+import { menuSelection } from '../../utils/consts'
 import {
+  verifyClientAndRestaurantAuthorization,
   verifyClientAuthorization,
+  verifyLivreurAuthorization,
   verifyRestaurantAuthorization,
 } from '../../utils/functions'
 import { IGraphqlContext } from '../../utils/types'
@@ -23,12 +27,7 @@ const Mutation = extendType({
         const { nom, prix, visible } = args
         return prisma.menu.create({
           data: { nom, prix, visible: visible || true, restaurantId },
-          select: {
-            id: true,
-            nom: true,
-            prix: true,
-            visible: true,
-          },
+          select: menuSelection,
         })
       },
     })
@@ -43,12 +42,7 @@ const Mutation = extendType({
         return prisma.menu.update({
           where: { id: menuId },
           data: { visible },
-          select: {
-            id: true,
-            nom: true,
-            prix: true,
-            visible: true,
-          },
+          select: menuSelection,
         })
       },
     })
@@ -67,12 +61,7 @@ const Mutation = extendType({
         return prisma.menu.update({
           where: { id: menuId },
           data,
-          select: {
-            id: true,
-            nom: true,
-            prix: true,
-            visible: true,
-          },
+          select: menuSelection,
         })
       },
     })
@@ -86,12 +75,7 @@ const Mutation = extendType({
         const { menuId } = args
         return prisma.menu.delete({
           where: { id: menuId },
-          select: {
-            id: true,
-            nom: true,
-            prix: true,
-            visible: true,
-          },
+          select: menuSelection,
         })
       },
     })
@@ -99,57 +83,38 @@ const Mutation = extendType({
     t.field('makeOrder', {
       type: 'Commande',
       args: { menus: nonNull(list(nonNull(CommandeDetailsInput))) },
-      // Used <any> type here because typescript causes errors
-      // on promise returned value
-      async resolve(_, args, ctx: IGraphqlContext): Promise<any> {
+      async resolve(_, args, ctx: IGraphqlContext) {
         const { token, prisma } = ctx
         const clientId = verifyClientAuthorization(token)
         const details = args.menus.map(menu => ({
           menuId: menu.menuId,
           quantite: menu.quantite || 1,
         }))
-        const createdCommande = await prisma.commande.create({
-          data: { date: new Date(), details, clientId },
-          select: {
-            id: true,
-            date: true,
-            client: {
-              select: {
-                id: true,
-                nom: true,
-                prenom: true,
-                adresse: true,
-              },
-            },
-            etat: true,
-            livreur: {
-              select: {
-                id: true,
-                nom: true,
-                prenom: true,
-              },
-            },
-            details: true,
-          },
+        return createCommande(prisma, {
+          date: new Date(),
+          details,
+          client: { connect: { id: clientId } },
         })
-        const { details: commandeDetails, ...commande } = createdCommande
-        return {
-          ...commande,
-          details: commandeDetails.map(async detail => ({
-            menu: await prisma.menu.findUnique({
-              where: { id: detail.menuId },
-              select: {
-                id: true,
-                nom: true,
-                prix: true,
-                restaurant: {
-                  select: { id: true, nom: true, adresse: true },
-                },
-              },
-            }),
-            quantite: detail.quantite,
-          })),
-        }
+      },
+    })
+
+    t.field('cancelOrder', {
+      type: 'Commande',
+      args: { commandeId: nonNull(stringArg()) },
+      async resolve(_, args, ctx: IGraphqlContext) {
+        const { token, prisma } = ctx
+        verifyClientAndRestaurantAuthorization(token)
+        return updateCommande(prisma, args.commandeId, { etat: 'ANNULEE' })
+      },
+    })
+
+    t.field('deliverOrder', {
+      type: 'Commande',
+      args: { commandeId: nonNull(stringArg()) },
+      async resolve(_, args, ctx: IGraphqlContext) {
+        const { token, prisma } = ctx
+        verifyLivreurAuthorization(token)
+        return updateCommande(prisma, args.commandeId, { etat: 'LIVREE' })
       },
     })
   },

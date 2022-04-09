@@ -99,3 +99,19 @@ export function verifyClientAuthorization(token: string): string {
 export function verifyRestaurantAuthorization(token: string): string {
   return verifyAuthorization(token, 'RESTAURANT')
 }
+
+export function verifyLivreurAuthorization(token: string): string {
+  return verifyAuthorization(token, 'LIVREUR')
+}
+
+export function verifyClientAndRestaurantAuthorization(token: string) {
+  if (token.length === 0) throw new UnauthorizedActionError()
+  const decodedToken = tokenVerify(token)
+  if (
+    !decodedToken['userType'] ||
+    (decodedToken['userType'].toUpperCase() !== 'RESTAURANT' &&
+      decodedToken['userType'].toUpperCase() !== 'CLIENT')
+  )
+    throw new UnauthorizedActionError()
+  return decodedToken['userID']
+}

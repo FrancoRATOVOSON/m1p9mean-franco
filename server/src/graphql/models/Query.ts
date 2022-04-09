@@ -1,5 +1,13 @@
 import { extendType, nonNull, stringArg } from 'nexus'
-import { verifyRestaurantAuthorization } from '../../utils/functions'
+import {
+  getAllCommandsByClient,
+  getAllCommandsByRestaurant,
+} from '../../database/commandes'
+import { menuRestaurantSelection, menuSelection } from '../../utils/consts'
+import {
+  verifyClientAuthorization,
+  verifyRestaurantAuthorization,
+} from '../../utils/functions'
 import { IGraphqlContext } from '../../utils/types'
 
 const Query = extendType({
@@ -10,7 +18,7 @@ const Query = extendType({
       type: 'Restaurant',
       resolve: (_: any, _args: any, ctx: IGraphqlContext) =>
         ctx.prisma.restaurant.findMany({
-          select: { id: true, nom: true, adresse: true, compte: false },
+          select: { id: true, nom: true, adresse: true },
         }),
     })
 
@@ -18,12 +26,7 @@ const Query = extendType({
       type: 'MenuReturnedType',
       resolve(_: any, _args: any, ctx: IGraphqlContext) {
         return ctx.prisma.menu.findMany({
-          select: {
-            id: true,
-            nom: true,
-            prix: true,
-            restaurant: { select: { id: true, nom: true, adresse: true } },
-          },
+          select: menuRestaurantSelection,
         })
       },
     })
@@ -35,12 +38,7 @@ const Query = extendType({
         const { restaurantId } = args
         return ctx.prisma.menu.findMany({
           where: { restaurantId },
-          select: {
-            id: true,
-            nom: true,
-            prix: true,
-            restaurant: { select: { id: true, nom: true, adresse: true } },
-          },
+          select: menuRestaurantSelection,
         })
       },
     })
@@ -52,13 +50,26 @@ const Query = extendType({
         const restaurantId = verifyRestaurantAuthorization(token)
         return prisma.menu.findMany({
           where: { restaurantId },
-          select: {
-            id: true,
-            nom: true,
-            prix: true,
-            visible: true,
-          },
+          select: menuSelection,
         })
+      },
+    })
+
+    t.list.field('myCommands', {
+      type: 'Commande',
+      async resolve(_, _args, ctx: IGraphqlContext): Promise<any> {
+        const { token, prisma } = ctx
+        const clientId = verifyClientAuthorization(token)
+        return getAllCommandsByClient(prisma, clientId)
+      },
+    })
+
+    t.list.field('receivedCommands', {
+      type: 'Commande',
+      async resolve(_, _args, ctx: IGraphqlContext): Promise<any> {
+        const { token, prisma } = ctx
+        const restaurantId = verifyRestaurantAuthorization(token)
+        return getAllCommandsByRestaurant(prisma, restaurantId)
       },
     })
   },

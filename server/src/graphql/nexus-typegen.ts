@@ -145,16 +145,20 @@ export interface NexusGenFieldTypes {
     restaurant: NexusGenRootTypes['Restaurant'] | null; // Restaurant
   }
   Mutation: { // field return type
+    cancelOrder: NexusGenRootTypes['Commande'] | null; // Commande
     changeMenuVisibility: NexusGenRootTypes['Menu'] | null; // Menu
     createMenu: NexusGenRootTypes['Menu'] | null; // Menu
     deleteMenu: NexusGenRootTypes['Menu'] | null; // Menu
+    deliverOrder: NexusGenRootTypes['Commande'] | null; // Commande
     makeOrder: NexusGenRootTypes['Commande'] | null; // Commande
     updateMenu: NexusGenRootTypes['Menu'] | null; // Menu
   }
   Query: { // field return type
     menus: Array<NexusGenRootTypes['MenuReturnedType'] | null> | null; // [MenuReturnedType]
     menusByRestaurant: Array<NexusGenRootTypes['Menu'] | null> | null; // [Menu]
+    myCommands: Array<NexusGenRootTypes['Commande'] | null> | null; // [Commande]
     myMenus: Array<NexusGenRootTypes['Menu'] | null> | null; // [Menu]
+    receivedCommands: Array<NexusGenRootTypes['Commande'] | null> | null; // [Commande]
     restaurants: Array<NexusGenRootTypes['Restaurant'] | null> | null; // [Restaurant]
   }
   Restaurant: { // field return type
@@ -204,16 +208,20 @@ export interface NexusGenFieldTypeNames {
     restaurant: 'Restaurant'
   }
   Mutation: { // field return type name
+    cancelOrder: 'Commande'
     changeMenuVisibility: 'Menu'
     createMenu: 'Menu'
     deleteMenu: 'Menu'
+    deliverOrder: 'Commande'
     makeOrder: 'Commande'
     updateMenu: 'Menu'
   }
   Query: { // field return type name
     menus: 'MenuReturnedType'
     menusByRestaurant: 'Menu'
+    myCommands: 'Commande'
     myMenus: 'Menu'
+    receivedCommands: 'Commande'
     restaurants: 'Restaurant'
   }
   Restaurant: { // field return type name
@@ -225,6 +233,9 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    cancelOrder: { // args
+      commandeId: string; // String!
+    }
     changeMenuVisibility: { // args
       menuId: string; // String!
       visible: boolean; // Boolean!
@@ -236,6 +247,9 @@ export interface NexusGenArgTypes {
     }
     deleteMenu: { // args
       menuId: string; // String!
+    }
+    deliverOrder: { // args
+      commandeId: string; // String!
     }
     makeOrder: { // args
       menus: NexusGenInputs['CommandeDetailsInput'][]; // [CommandeDetailsInput!]!

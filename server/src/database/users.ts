@@ -1,4 +1,4 @@
-import { IAdmin, IClient, ILivreur, IRestaurant } from '../utils/interfaces'
+import { IAdmin, IClient, ILivreur, IRestaurant } from '../utils/types'
 import { hashPassword } from '../utils/tools'
 import prisma from './prisma'
 
