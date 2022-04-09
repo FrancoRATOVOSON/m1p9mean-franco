@@ -1,19 +1,25 @@
 import http from 'http'
+import dotenv from 'dotenv'
 import app from './servers/express'
 import createApolloServer from './servers/apollo'
-import { typeDefs, resolvers } from './model/config'
+import schema from './graphql/schema'
+import { context } from './utils/consts'
+
+dotenv.config()
 
 async function start() {
   const httpServer = http.createServer(app)
-  const server = createApolloServer(typeDefs, resolvers, httpServer)
+  const server = createApolloServer(schema, context, httpServer)
 
   await server.start()
   server.applyMiddleware({ app })
-  // eslint-disable-next-line no-promise-executor-return
-  await new Promise<void>(resolve => httpServer.listen({ port: 8080 }, resolve))
+  await new Promise<void>(resolve =>
+    // eslint-disable-next-line no-promise-executor-return
+    httpServer.listen({ port: process.env.PORT }, resolve)
+  )
   // TODO: don't forget to remove 'console.log' before send in prod
   // eslint-disable-next-line no-console
-  console.log(`🚀 Server ready at http://localhost:8080
+  console.log(`🚀 Server ready at http://localhost:${process.env.PORT}
     -for REST at /api
     -for GraphQL et /graphql
   `)
