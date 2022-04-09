@@ -1,4 +1,4 @@
-import { UserTypeError } from './errors'
+import { UnauthorizedActionError, UserTypeError } from './errors'
 import {
   toAdminData,
   toClientData,
@@ -15,6 +15,7 @@ import {
   findLivreurByMail,
   findRestaurantByMail,
 } from '../database/users'
+import { tokenVerify } from './tools'
 
 export function returnUser(userType: string, user: any) {
   const userToReturn: any = {}
@@ -78,4 +79,23 @@ export async function findUserByMail(
     default:
       throw new UserTypeError(userType)
   }
+}
+
+function verifyAuthorization(token: string, userType: string): string {
+  if (token.length === 0) throw new UnauthorizedActionError()
+  const decodedToken = tokenVerify(token)
+  if (
+    !decodedToken['userType'] ||
+    decodedToken['userType'].toUpperCase() !== userType.toUpperCase()
+  )
+    throw new UnauthorizedActionError()
+  return decodedToken['userID']
+}
+
+export function verifyClientAuthorization(token: string): string {
+  return verifyAuthorization(token, 'CLIENT')
+}
+
+export function verifyRestaurantAuthorization(token: string): string {
+  return verifyAuthorization(token, 'RESTAURANT')
 }

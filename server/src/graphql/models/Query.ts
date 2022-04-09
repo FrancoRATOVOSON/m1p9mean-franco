@@ -1,6 +1,5 @@
 import { extendType, nonNull, stringArg } from 'nexus'
-import { UnauthorizedActionError } from '../../utils/errors'
-import { tokenVerify } from '../../utils/tools'
+import { verifyRestaurantAuthorization } from '../../utils/functions'
 import { IGraphqlContext } from '../../utils/types'
 
 const Query = extendType({
@@ -50,14 +49,7 @@ const Query = extendType({
       type: 'Menu',
       resolve(_, _args, ctx: IGraphqlContext) {
         const { prisma, token } = ctx
-        if (token.length === 0) throw new UnauthorizedActionError()
-        const decodedToken = tokenVerify(token)
-        if (
-          !decodedToken['userType'] ||
-          decodedToken['userType'].toUpperCase() !== 'RESTAURANT'
-        )
-          throw new UnauthorizedActionError()
-        const restaurantId = decodedToken['userID']
+        const restaurantId = verifyRestaurantAuthorization(token)
         return prisma.menu.findMany({
           where: { restaurantId },
           select: {

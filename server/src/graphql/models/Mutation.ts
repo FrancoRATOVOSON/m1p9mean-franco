@@ -1,6 +1,8 @@
 import { booleanArg, extendType, intArg, list, nonNull, stringArg } from 'nexus'
-import { UnauthorizedActionError } from '../../utils/errors'
-import { tokenVerify } from '../../utils/tools'
+import {
+  verifyClientAuthorization,
+  verifyRestaurantAuthorization,
+} from '../../utils/functions'
 import { IGraphqlContext } from '../../utils/types'
 import { CommandeDetailsInput } from './Commande'
 
@@ -17,15 +19,8 @@ const Mutation = extendType({
       },
       resolve(_, args, ctx: IGraphqlContext) {
         const { token, prisma } = ctx
-        if (token.length === 0) throw new UnauthorizedActionError()
-        const decodedToken = tokenVerify(token)
-        if (
-          !decodedToken['userType'] ||
-          decodedToken['userType'].toUpperCase() !== 'RESTAURANT'
-        )
-          throw new UnauthorizedActionError()
+        const restaurantId = verifyRestaurantAuthorization(token)
         const { nom, prix, visible } = args
-        const restaurantId = decodedToken['userID']
         return prisma.menu.create({
           data: { nom, prix, visible: visible || true, restaurantId },
           select: {
@@ -43,13 +38,7 @@ const Mutation = extendType({
       args: { menuId: nonNull(stringArg()), visible: nonNull(booleanArg()) },
       resolve(_, args, ctx: IGraphqlContext) {
         const { token, prisma } = ctx
-        if (token.length === 0) throw new UnauthorizedActionError()
-        const decodedToken = tokenVerify(token)
-        if (
-          !decodedToken['userType'] ||
-          decodedToken['userType'].toUpperCase() !== 'RESTAURANT'
-        )
-          throw new UnauthorizedActionError()
+        verifyRestaurantAuthorization(token)
         const { menuId, visible } = args
         return prisma.menu.update({
           where: { id: menuId },
@@ -69,13 +58,7 @@ const Mutation = extendType({
       args: { menuId: nonNull(stringArg()), nom: stringArg(), prix: intArg() },
       resolve(_, args, ctx: IGraphqlContext) {
         const { token, prisma } = ctx
-        if (token.length === 0) throw new UnauthorizedActionError()
-        const decodedToken = tokenVerify(token)
-        if (
-          !decodedToken['userType'] ||
-          decodedToken['userType'].toUpperCase() !== 'RESTAURANT'
-        )
-          throw new UnauthorizedActionError()
+        verifyRestaurantAuthorization(token)
         const { menuId, ...rest } = args
         const data = {
           nom: rest.nom !== null ? rest.nom : undefined,
@@ -99,13 +82,7 @@ const Mutation = extendType({
       args: { menuId: nonNull(stringArg()) },
       resolve(_, args, ctx: IGraphqlContext) {
         const { token, prisma } = ctx
-        if (token.length === 0) throw new UnauthorizedActionError()
-        const decodedToken = tokenVerify(token)
-        if (
-          !decodedToken['userType'] ||
-          decodedToken['userType'].toUpperCase() !== 'RESTAURANT'
-        )
-          throw new UnauthorizedActionError()
+        verifyRestaurantAuthorization(token)
         const { menuId } = args
         return prisma.menu.delete({
           where: { id: menuId },
@@ -126,14 +103,7 @@ const Mutation = extendType({
       // on promise returned value
       async resolve(_, args, ctx: IGraphqlContext): Promise<any> {
         const { token, prisma } = ctx
-        if (token.length === 0) throw new UnauthorizedActionError()
-        const decodedToken = tokenVerify(token)
-        if (
-          !decodedToken['userType'] ||
-          decodedToken['userType'].toUpperCase() !== 'CLIENT'
-        )
-          throw new UnauthorizedActionError()
-        const clientId = decodedToken['userID']
+        const clientId = verifyClientAuthorization(token)
         const details = args.menus.map(menu => ({
           menuId: menu.menuId,
           quantite: menu.quantite || 1,
@@ -163,23 +133,22 @@ const Mutation = extendType({
           },
         })
         const { details: commandeDetails, ...commande } = createdCommande
-        const menuList = commandeDetails.map(async detail => ({
-          menu: await prisma.menu.findUnique({
-            where: { id: detail.menuId },
-            select: {
-              id: true,
-              nom: true,
-              prix: true,
-              restaurant: {
-                select: { id: true, nom: true, adresse: true },
-              },
-            },
-          }),
-          quantite: detail.quantite,
-        }))
         return {
           ...commande,
-          details: menuList,
+          details: commandeDetails.map(async detail => ({
+            menu: await prisma.menu.findUnique({
+              where: { id: detail.menuId },
+              select: {
+                id: true,
+                nom: true,
+                prix: true,
+                restaurant: {
+                  select: { id: true, nom: true, adresse: true },
+                },
+              },
+            }),
+            quantite: detail.quantite,
+          })),
         }
       },
     })
@@ -187,9 +156,3 @@ const Mutation = extendType({
 })
 
 export default Mutation
-
-/*
-Le type
-'Promise<{ menu: { id: string; nom: string; prix: number; restaurant: { adresse: string; id: string; nom: string; }; } | null; quantite: number; }>' n'a aucune propriété en commun avec le type
-'{ menu?: { id?: string; nom?: string; prix?: number; restaurant?: { adresse?: string; id: string; nom: string; }; } | null; quantite?: number; }'
-*/
