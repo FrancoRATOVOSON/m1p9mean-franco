@@ -28,6 +28,10 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  CommandeDetailsInput: { // input type
+    menuId: string; // String!
+    quantite?: number | null; // Int
+  }
 }
 
 export interface NexusGenEnums {
@@ -60,7 +64,7 @@ export interface NexusGenObjects {
     livreur?: NexusGenRootTypes['Livreur'] | null; // Livreur
   }
   CommandeDetails: { // root type
-    menuId?: string | null; // String
+    menu?: NexusGenRootTypes['MenuReturnedType'] | null; // MenuReturnedType
     quantite?: number | null; // Int
   }
   Livreur: { // root type
@@ -118,7 +122,7 @@ export interface NexusGenFieldTypes {
     livreur: NexusGenRootTypes['Livreur'] | null; // Livreur
   }
   CommandeDetails: { // field return type
-    menuId: string | null; // String
+    menu: NexusGenRootTypes['MenuReturnedType'] | null; // MenuReturnedType
     quantite: number | null; // Int
   }
   Livreur: { // field return type
@@ -144,6 +148,7 @@ export interface NexusGenFieldTypes {
     changeMenuVisibility: NexusGenRootTypes['Menu'] | null; // Menu
     createMenu: NexusGenRootTypes['Menu'] | null; // Menu
     deleteMenu: NexusGenRootTypes['Menu'] | null; // Menu
+    makeOrder: NexusGenRootTypes['Commande'] | null; // Commande
     updateMenu: NexusGenRootTypes['Menu'] | null; // Menu
   }
   Query: { // field return type
@@ -176,7 +181,7 @@ export interface NexusGenFieldTypeNames {
     livreur: 'Livreur'
   }
   CommandeDetails: { // field return type name
-    menuId: 'String'
+    menu: 'MenuReturnedType'
     quantite: 'Int'
   }
   Livreur: { // field return type name
@@ -202,6 +207,7 @@ export interface NexusGenFieldTypeNames {
     changeMenuVisibility: 'Menu'
     createMenu: 'Menu'
     deleteMenu: 'Menu'
+    makeOrder: 'Commande'
     updateMenu: 'Menu'
   }
   Query: { // field return type name
@@ -231,6 +237,9 @@ export interface NexusGenArgTypes {
     deleteMenu: { // args
       menuId: string; // String!
     }
+    makeOrder: { // args
+      menus: NexusGenInputs['CommandeDetailsInput'][]; // [CommandeDetailsInput!]!
+    }
     updateMenu: { // args
       menuId: string; // String!
       nom?: string | null; // String
@@ -252,7 +261,7 @@ export interface NexusGenTypeInterfaces {
 
 export type NexusGenObjectNames = keyof NexusGenObjects;
 
-export type NexusGenInputNames = never;
+export type NexusGenInputNames = keyof NexusGenInputs;
 
 export type NexusGenEnumNames = keyof NexusGenEnums;
 

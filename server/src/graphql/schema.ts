@@ -12,6 +12,7 @@ import {
   Mutation,
   CommandeDetails,
   Livreur,
+  CommandeDetailsInput,
 } from './models'
 
 const schema = makeSchema({
@@ -24,6 +25,7 @@ const schema = makeSchema({
     Livreur,
     CommandeDetails,
     Commande,
+    CommandeDetailsInput,
     Client,
     Query,
     Mutation,
