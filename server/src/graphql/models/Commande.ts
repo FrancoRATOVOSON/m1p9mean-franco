@@ -15,5 +15,6 @@ export const Commande = objectType({
     t.string('id')
     t.date('date')
     t.field('etat', { type: 'Etat' })
+    t.field('client', { type: 'Client' })
   },
 })

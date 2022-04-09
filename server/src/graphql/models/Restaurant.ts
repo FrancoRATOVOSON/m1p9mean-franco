@@ -1,7 +1,6 @@
-import { extendType, objectType } from 'nexus'
-import { IGraphqlContext } from '../../utils/types'
+import { objectType } from 'nexus'
 
-export const Restaurant = objectType({
+const Restaurant = objectType({
   name: 'Restaurant',
   definition(t) {
     t.nonNull.string('id')
@@ -10,15 +9,4 @@ export const Restaurant = objectType({
   },
 })
 
-export const RestaurantQuery = extendType({
-  type: 'Query',
-  definition(t) {
-    t.nonNull.list.field('restaurants', {
-      type: 'Restaurant',
-      resolve: (_: any, _args: any, ctx: IGraphqlContext) =>
-        ctx.prisma.restaurant.findMany({
-          select: { id: true, nom: true, adresse: true, compte: false },
-        }),
-    })
-  },
-})
+export default Restaurant

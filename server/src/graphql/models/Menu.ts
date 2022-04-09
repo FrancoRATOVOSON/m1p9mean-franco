@@ -1,11 +1,24 @@
 import { objectType } from 'nexus'
 
-export const Menu = objectType({
+const Menu = objectType({
   name: 'Menu',
   definition(t) {
     t.string('id')
     t.string('nom')
+    t.int('prix')
+    t.boolean('visible')
+    t.field('restaurant', { type: 'Restaurant' })
   },
 })
 
-export const def = ''
+export const MenuReturnedType = objectType({
+  name: 'MenuReturnedType',
+  definition(t) {
+    t.string('id')
+    t.string('nom')
+    t.int('prix')
+    t.field('restaurant', { type: 'Restaurant' })
+  },
+})
+
+export default Menu

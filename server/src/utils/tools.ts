@@ -25,14 +25,14 @@ export function tokenSign(
   payload: string | object | Buffer,
   expiresIn: string | number
 ) {
-  return jwt.sign(payload, process.env.TOKEN_SECRET_KEY, {
+  return jwt.sign(payload, process.env.TOKEN_SECRET_KEY || 'TOKEN_SECRET_KEY', {
     expiresIn,
     algorithm: 'HS512',
   })
 }
 
 export function tokenVerify(token: string) {
-  return jwt.verify(token, process.env.TOKEN_SECRET_KEY, {
+  return jwt.verify(token, process.env.TOKEN_SECRET_KEY || 'TOKEN_SECRET_KEY', {
     algorithms: ['HS512'],
   })
 }

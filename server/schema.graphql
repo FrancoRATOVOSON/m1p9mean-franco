@@ -2,7 +2,16 @@
 ### Do not make changes to this file directly
 
 
+type Client {
+  adresse: String
+  commandes: [Commande]
+  id: String!
+  nom: String
+  prenom: String
+}
+
 type Commande {
+  client: Client
   date: Date
   etat: Etat
   id: String
@@ -28,10 +37,25 @@ enum Etat {
 type Menu {
   id: String
   nom: String
+  prix: Int
+  restaurant: Restaurant
+  visible: Boolean
+}
+
+type MenuReturnedType {
+  id: String
+  nom: String
+  prix: Int
+  restaurant: Restaurant
+}
+
+type Mutation {
+  createMenu(nom: String!, prix: Int!, visible: Boolean): Menu
 }
 
 type Query {
-  restaurants: [Restaurant]!
+  menus: [MenuReturnedType]
+  restaurants: [Restaurant]
 }
 
 type Restaurant {

@@ -6,7 +6,6 @@ import {
   PrismaClient,
   Restaurant,
 } from '@prisma/client'
-import { JwtPayload } from 'jsonwebtoken'
 import { asNexusMethod } from 'nexus'
 import { GraphQLDate } from 'graphql-scalars'
 
@@ -42,7 +41,7 @@ export interface IPrismaContext {
 }
 
 export interface IGraphqlContext {
-  token: string | JwtPayload
+  token: string
   prisma: PrismaClient
 }
 

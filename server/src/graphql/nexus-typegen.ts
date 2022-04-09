@@ -44,7 +44,15 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Client: { // root type
+    adresse?: string | null; // String
+    commandes?: Array<NexusGenRootTypes['Commande'] | null> | null; // [Commande]
+    id: string; // String!
+    nom?: string | null; // String
+    prenom?: string | null; // String
+  }
   Commande: { // root type
+    client?: NexusGenRootTypes['Client'] | null; // Client
     date?: NexusGenScalars['Date'] | null; // Date
     etat?: NexusGenEnums['Etat'] | null; // Etat
     id?: string | null; // String
@@ -52,7 +60,17 @@ export interface NexusGenObjects {
   Menu: { // root type
     id?: string | null; // String
     nom?: string | null; // String
+    prix?: number | null; // Int
+    restaurant?: NexusGenRootTypes['Restaurant'] | null; // Restaurant
+    visible?: boolean | null; // Boolean
   }
+  MenuReturnedType: { // root type
+    id?: string | null; // String
+    nom?: string | null; // String
+    prix?: number | null; // Int
+    restaurant?: NexusGenRootTypes['Restaurant'] | null; // Restaurant
+  }
+  Mutation: {};
   Query: {};
   Restaurant: { // root type
     adresse?: string | null; // String
@@ -72,7 +90,15 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
 
 export interface NexusGenFieldTypes {
+  Client: { // field return type
+    adresse: string | null; // String
+    commandes: Array<NexusGenRootTypes['Commande'] | null> | null; // [Commande]
+    id: string; // String!
+    nom: string | null; // String
+    prenom: string | null; // String
+  }
   Commande: { // field return type
+    client: NexusGenRootTypes['Client'] | null; // Client
     date: NexusGenScalars['Date'] | null; // Date
     etat: NexusGenEnums['Etat'] | null; // Etat
     id: string | null; // String
@@ -80,9 +106,22 @@ export interface NexusGenFieldTypes {
   Menu: { // field return type
     id: string | null; // String
     nom: string | null; // String
+    prix: number | null; // Int
+    restaurant: NexusGenRootTypes['Restaurant'] | null; // Restaurant
+    visible: boolean | null; // Boolean
+  }
+  MenuReturnedType: { // field return type
+    id: string | null; // String
+    nom: string | null; // String
+    prix: number | null; // Int
+    restaurant: NexusGenRootTypes['Restaurant'] | null; // Restaurant
+  }
+  Mutation: { // field return type
+    createMenu: NexusGenRootTypes['Menu'] | null; // Menu
   }
   Query: { // field return type
-    restaurants: Array<NexusGenRootTypes['Restaurant'] | null>; // [Restaurant]!
+    menus: Array<NexusGenRootTypes['MenuReturnedType'] | null> | null; // [MenuReturnedType]
+    restaurants: Array<NexusGenRootTypes['Restaurant'] | null> | null; // [Restaurant]
   }
   Restaurant: { // field return type
     adresse: string | null; // String
@@ -92,7 +131,15 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  Client: { // field return type name
+    adresse: 'String'
+    commandes: 'Commande'
+    id: 'String'
+    nom: 'String'
+    prenom: 'String'
+  }
   Commande: { // field return type name
+    client: 'Client'
     date: 'Date'
     etat: 'Etat'
     id: 'String'
@@ -100,8 +147,21 @@ export interface NexusGenFieldTypeNames {
   Menu: { // field return type name
     id: 'String'
     nom: 'String'
+    prix: 'Int'
+    restaurant: 'Restaurant'
+    visible: 'Boolean'
+  }
+  MenuReturnedType: { // field return type name
+    id: 'String'
+    nom: 'String'
+    prix: 'Int'
+    restaurant: 'Restaurant'
+  }
+  Mutation: { // field return type name
+    createMenu: 'Menu'
   }
   Query: { // field return type name
+    menus: 'MenuReturnedType'
     restaurants: 'Restaurant'
   }
   Restaurant: { // field return type name
@@ -112,6 +172,13 @@ export interface NexusGenFieldTypeNames {
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    createMenu: { // args
+      nom: string; // String!
+      prix: number; // Int!
+      visible?: boolean | null; // Boolean
+    }
+  }
 }
 
 export interface NexusGenAbstractTypeMembers {
