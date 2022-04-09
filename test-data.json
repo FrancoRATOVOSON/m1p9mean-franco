@@ -28,6 +28,14 @@
         "adresse": "8026 West Street, Clane, Dublin City, Ireland",
         "email": "eliza.webb@example.com",
         "motDePasse": "ebony"
+      },
+      {
+        "id": "623edf91a2e668121540f6e3",
+        "nom": "Alrik",
+        "prenom": "Rolfes",
+        "adresse": "9350 Jan Boltenhof, Noorden, Zuid-Holland, Netherlands",
+        "email": "alrik.rolfes@example.com",
+        "motDePasse": "tina"
       }
     ],
     "livreur": [
