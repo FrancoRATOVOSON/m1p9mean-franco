@@ -10,6 +10,8 @@ import {
   Query,
   MenuReturnedType,
   Mutation,
+  CommandeDetails,
+  Livreur,
 } from './models'
 
 const schema = makeSchema({
@@ -19,6 +21,8 @@ const schema = makeSchema({
     Restaurant,
     Menu,
     MenuReturnedType,
+    Livreur,
+    CommandeDetails,
     Commande,
     Client,
     Query,

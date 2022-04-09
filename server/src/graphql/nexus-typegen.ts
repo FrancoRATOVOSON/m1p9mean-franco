@@ -54,8 +54,20 @@ export interface NexusGenObjects {
   Commande: { // root type
     client?: NexusGenRootTypes['Client'] | null; // Client
     date?: NexusGenScalars['Date'] | null; // Date
+    details?: Array<NexusGenRootTypes['CommandeDetails'] | null> | null; // [CommandeDetails]
     etat?: NexusGenEnums['Etat'] | null; // Etat
     id?: string | null; // String
+    livreur?: NexusGenRootTypes['Livreur'] | null; // Livreur
+  }
+  CommandeDetails: { // root type
+    menuId?: string | null; // String
+    quantite?: number | null; // Int
+  }
+  Livreur: { // root type
+    id: string; // String!
+    livraisons?: Array<NexusGenRootTypes['Commande'] | null> | null; // [Commande]
+    nom?: string | null; // String
+    prenom?: string | null; // String
   }
   Menu: { // root type
     id?: string | null; // String
@@ -100,8 +112,20 @@ export interface NexusGenFieldTypes {
   Commande: { // field return type
     client: NexusGenRootTypes['Client'] | null; // Client
     date: NexusGenScalars['Date'] | null; // Date
+    details: Array<NexusGenRootTypes['CommandeDetails'] | null> | null; // [CommandeDetails]
     etat: NexusGenEnums['Etat'] | null; // Etat
     id: string | null; // String
+    livreur: NexusGenRootTypes['Livreur'] | null; // Livreur
+  }
+  CommandeDetails: { // field return type
+    menuId: string | null; // String
+    quantite: number | null; // Int
+  }
+  Livreur: { // field return type
+    id: string; // String!
+    livraisons: Array<NexusGenRootTypes['Commande'] | null> | null; // [Commande]
+    nom: string | null; // String
+    prenom: string | null; // String
   }
   Menu: { // field return type
     id: string | null; // String
@@ -117,10 +141,15 @@ export interface NexusGenFieldTypes {
     restaurant: NexusGenRootTypes['Restaurant'] | null; // Restaurant
   }
   Mutation: { // field return type
+    changeMenuVisibility: NexusGenRootTypes['Menu'] | null; // Menu
     createMenu: NexusGenRootTypes['Menu'] | null; // Menu
+    deleteMenu: NexusGenRootTypes['Menu'] | null; // Menu
+    updateMenu: NexusGenRootTypes['Menu'] | null; // Menu
   }
   Query: { // field return type
     menus: Array<NexusGenRootTypes['MenuReturnedType'] | null> | null; // [MenuReturnedType]
+    menusByRestaurant: Array<NexusGenRootTypes['Menu'] | null> | null; // [Menu]
+    myMenus: Array<NexusGenRootTypes['Menu'] | null> | null; // [Menu]
     restaurants: Array<NexusGenRootTypes['Restaurant'] | null> | null; // [Restaurant]
   }
   Restaurant: { // field return type
@@ -141,8 +170,20 @@ export interface NexusGenFieldTypeNames {
   Commande: { // field return type name
     client: 'Client'
     date: 'Date'
+    details: 'CommandeDetails'
     etat: 'Etat'
     id: 'String'
+    livreur: 'Livreur'
+  }
+  CommandeDetails: { // field return type name
+    menuId: 'String'
+    quantite: 'Int'
+  }
+  Livreur: { // field return type name
+    id: 'String'
+    livraisons: 'Commande'
+    nom: 'String'
+    prenom: 'String'
   }
   Menu: { // field return type name
     id: 'String'
@@ -158,10 +199,15 @@ export interface NexusGenFieldTypeNames {
     restaurant: 'Restaurant'
   }
   Mutation: { // field return type name
+    changeMenuVisibility: 'Menu'
     createMenu: 'Menu'
+    deleteMenu: 'Menu'
+    updateMenu: 'Menu'
   }
   Query: { // field return type name
     menus: 'MenuReturnedType'
+    menusByRestaurant: 'Menu'
+    myMenus: 'Menu'
     restaurants: 'Restaurant'
   }
   Restaurant: { // field return type name
@@ -173,10 +219,27 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    changeMenuVisibility: { // args
+      menuId: string; // String!
+      visible: boolean; // Boolean!
+    }
     createMenu: { // args
       nom: string; // String!
       prix: number; // Int!
       visible?: boolean | null; // Boolean
+    }
+    deleteMenu: { // args
+      menuId: string; // String!
+    }
+    updateMenu: { // args
+      menuId: string; // String!
+      nom?: string | null; // String
+      prix?: number | null; // Int
+    }
+  }
+  Query: {
+    menusByRestaurant: { // args
+      restaurantId: string; // String!
     }
   }
 }

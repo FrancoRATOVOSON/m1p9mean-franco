@@ -1,6 +1,7 @@
 export { default as Restaurant } from './Restaurant'
 export { default as Menu, MenuReturnedType } from './Menu'
-export { Commande, Etat } from './Commande'
+export { default as Commande, Etat, CommandeDetails } from './Commande'
 export { default as Client } from './Client'
+export { default as Livreur } from './Livreur'
 export { default as Query } from './Query'
 export { default as Mutation } from './Mutation'

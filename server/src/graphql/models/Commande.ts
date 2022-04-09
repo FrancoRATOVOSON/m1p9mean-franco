@@ -9,12 +9,24 @@ export const Etat = enumType({
   - ANNULEE : pour les commandes annulées par les utilisateurs`,
 })
 
-export const Commande = objectType({
+export const CommandeDetails = objectType({
+  name: 'CommandeDetails',
+  definition(t) {
+    t.string('menuId')
+    t.int('quantite')
+  },
+})
+
+const Commande = objectType({
   name: 'Commande',
   definition(t) {
     t.string('id')
     t.date('date')
-    t.field('etat', { type: 'Etat' })
     t.field('client', { type: 'Client' })
+    t.field('etat', { type: 'Etat' })
+    t.list.field('details', { type: 'CommandeDetails' })
+    t.field('livreur', { type: 'Livreur' })
   },
 })
+
+export default Commande

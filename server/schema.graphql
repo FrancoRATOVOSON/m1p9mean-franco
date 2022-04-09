@@ -13,8 +13,15 @@ type Client {
 type Commande {
   client: Client
   date: Date
+  details: [CommandeDetails]
   etat: Etat
   id: String
+  livreur: Livreur
+}
+
+type CommandeDetails {
+  menuId: String
+  quantite: Int
 }
 
 """
@@ -34,6 +41,13 @@ enum Etat {
   LIVREE
 }
 
+type Livreur {
+  id: String!
+  livraisons: [Commande]
+  nom: String
+  prenom: String
+}
+
 type Menu {
   id: String
   nom: String
@@ -50,11 +64,16 @@ type MenuReturnedType {
 }
 
 type Mutation {
+  changeMenuVisibility(menuId: String!, visible: Boolean!): Menu
   createMenu(nom: String!, prix: Int!, visible: Boolean): Menu
+  deleteMenu(menuId: String!): Menu
+  updateMenu(menuId: String!, nom: String, prix: Int): Menu
 }
 
 type Query {
   menus: [MenuReturnedType]
+  menusByRestaurant(restaurantId: String!): [Menu]
+  myMenus: [Menu]
   restaurants: [Restaurant]
 }
 
