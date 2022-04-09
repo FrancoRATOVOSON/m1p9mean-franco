@@ -1,7 +1,14 @@
-import { booleanArg, extendType, intArg, nonNull, stringArg } from 'nexus'
-import { UnauthorizedActionError } from '../../utils/errors'
-import { tokenVerify } from '../../utils/tools'
+import { booleanArg, extendType, intArg, list, nonNull, stringArg } from 'nexus'
+import { createCommande, updateCommande } from '../../database/commandes'
+import { menuSelection } from '../../utils/consts'
+import {
+  verifyClientAndRestaurantAuthorization,
+  verifyClientAuthorization,
+  verifyLivreurAuthorization,
+  verifyRestaurantAuthorization,
+} from '../../utils/functions'
 import { IGraphqlContext } from '../../utils/types'
+import { CommandeDetailsInput } from './Commande'
 
 const Mutation = extendType({
   type: 'Mutation',
@@ -16,23 +23,11 @@ const Mutation = extendType({
       },
       resolve(_, args, ctx: IGraphqlContext) {
         const { token, prisma } = ctx
-        if (token.length === 0) throw new UnauthorizedActionError()
-        const decodedToken = tokenVerify(token)
-        if (
-          !decodedToken['userType'] ||
-          decodedToken['userType'].toUpperCase() !== 'RESTAURANT'
-        )
-          throw new UnauthorizedActionError()
+        const restaurantId = verifyRestaurantAuthorization(token)
         const { nom, prix, visible } = args
-        const restaurantId = decodedToken['userID']
         return prisma.menu.create({
           data: { nom, prix, visible: visible || true, restaurantId },
-          select: {
-            id: true,
-            nom: true,
-            prix: true,
-            visible: true,
-          },
+          select: menuSelection,
         })
       },
     })
@@ -42,23 +37,12 @@ const Mutation = extendType({
       args: { menuId: nonNull(stringArg()), visible: nonNull(booleanArg()) },
       resolve(_, args, ctx: IGraphqlContext) {
         const { token, prisma } = ctx
-        if (token.length === 0) throw new UnauthorizedActionError()
-        const decodedToken = tokenVerify(token)
-        if (
-          !decodedToken['userType'] ||
-          decodedToken['userType'].toUpperCase() !== 'RESTAURANT'
-        )
-          throw new UnauthorizedActionError()
+        verifyRestaurantAuthorization(token)
         const { menuId, visible } = args
         return prisma.menu.update({
           where: { id: menuId },
           data: { visible },
-          select: {
-            id: true,
-            nom: true,
-            prix: true,
-            visible: true,
-          },
+          select: menuSelection,
         })
       },
     })
@@ -68,27 +52,16 @@ const Mutation = extendType({
       args: { menuId: nonNull(stringArg()), nom: stringArg(), prix: intArg() },
       resolve(_, args, ctx: IGraphqlContext) {
         const { token, prisma } = ctx
-        if (token.length === 0) throw new UnauthorizedActionError()
-        const decodedToken = tokenVerify(token)
-        if (
-          !decodedToken['userType'] ||
-          decodedToken['userType'].toUpperCase() !== 'RESTAURANT'
-        )
-          throw new UnauthorizedActionError()
-        const { menuId, ...arg } = args
+        verifyRestaurantAuthorization(token)
+        const { menuId, ...rest } = args
         const data = {
-          nom: arg.nom !== null ? arg.nom : undefined,
-          prix: arg.prix !== null ? arg.prix : undefined,
+          nom: rest.nom !== null ? rest.nom : undefined,
+          prix: rest.prix !== null ? rest.prix : undefined,
         }
         return prisma.menu.update({
           where: { id: menuId },
           data,
-          select: {
-            id: true,
-            nom: true,
-            prix: true,
-            visible: true,
-          },
+          select: menuSelection,
         })
       },
     })
@@ -98,23 +71,50 @@ const Mutation = extendType({
       args: { menuId: nonNull(stringArg()) },
       resolve(_, args, ctx: IGraphqlContext) {
         const { token, prisma } = ctx
-        if (token.length === 0) throw new UnauthorizedActionError()
-        const decodedToken = tokenVerify(token)
-        if (
-          !decodedToken['userType'] ||
-          decodedToken['userType'].toUpperCase() !== 'RESTAURANT'
-        )
-          throw new UnauthorizedActionError()
+        verifyRestaurantAuthorization(token)
         const { menuId } = args
         return prisma.menu.delete({
           where: { id: menuId },
-          select: {
-            id: true,
-            nom: true,
-            prix: true,
-            visible: true,
-          },
+          select: menuSelection,
         })
+      },
+    })
+
+    t.field('makeOrder', {
+      type: 'Commande',
+      args: { menus: nonNull(list(nonNull(CommandeDetailsInput))) },
+      async resolve(_, args, ctx: IGraphqlContext) {
+        const { token, prisma } = ctx
+        const clientId = verifyClientAuthorization(token)
+        const details = args.menus.map(menu => ({
+          menuId: menu.menuId,
+          quantite: menu.quantite || 1,
+        }))
+        return createCommande(prisma, {
+          date: new Date(),
+          details,
+          client: { connect: { id: clientId } },
+        })
+      },
+    })
+
+    t.field('cancelOrder', {
+      type: 'Commande',
+      args: { commandeId: nonNull(stringArg()) },
+      async resolve(_, args, ctx: IGraphqlContext) {
+        const { token, prisma } = ctx
+        verifyClientAndRestaurantAuthorization(token)
+        return updateCommande(prisma, args.commandeId, { etat: 'ANNULEE' })
+      },
+    })
+
+    t.field('deliverOrder', {
+      type: 'Commande',
+      args: { commandeId: nonNull(stringArg()) },
+      async resolve(_, args, ctx: IGraphqlContext) {
+        const { token, prisma } = ctx
+        verifyLivreurAuthorization(token)
+        return updateCommande(prisma, args.commandeId, { etat: 'LIVREE' })
       },
     })
   },

@@ -21,6 +21,7 @@
         "consistent-return": "off",
         "prettier/prettier": "warn",
         "import/no-extraneous-dependencies": "off",
+        "no-restricted-syntax": ["off", "FunctionExpression", "WithStatement", "BinaryExpression[operator='in']"],
         "import/no-unresolved": "off",
         "import/extensions": "off",
         "max-classes-per-file": "off",

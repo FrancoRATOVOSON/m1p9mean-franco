@@ -76,5 +76,5 @@ type CommandeDetails {
   // Since relations inside embedded documents are not supported yet
   // We'll have to implement the querying function ourself
   menuId String @db.ObjectId
-  quantite Int
+  quantite Int @default(1)
 }

@@ -4,7 +4,7 @@ import {
   returnUser,
   isUserExists,
   findUserByMail,
-} from '../utils/fonctions'
+} from '../utils/functions'
 import { comparePassword, tokenSign } from '../utils/tools'
 
 export const signup: RequestHandler = async (req: Request, res: Response) => {

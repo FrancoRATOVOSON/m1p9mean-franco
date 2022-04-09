@@ -20,7 +20,12 @@ type Commande {
 }
 
 type CommandeDetails {
-  menuId: String
+  menu: MenuReturnedType
+  quantite: Int
+}
+
+input CommandeDetailsInput {
+  menuId: String!
   quantite: Int
 }
 
@@ -64,16 +69,21 @@ type MenuReturnedType {
 }
 
 type Mutation {
+  cancelOrder(commandeId: String!): Commande
   changeMenuVisibility(menuId: String!, visible: Boolean!): Menu
   createMenu(nom: String!, prix: Int!, visible: Boolean): Menu
   deleteMenu(menuId: String!): Menu
+  deliverOrder(commandeId: String!): Commande
+  makeOrder(menus: [CommandeDetailsInput!]!): Commande
   updateMenu(menuId: String!, nom: String, prix: Int): Menu
 }
 
 type Query {
   menus: [MenuReturnedType]
   menusByRestaurant(restaurantId: String!): [Menu]
+  myCommands: [Commande]
   myMenus: [Menu]
+  receivedCommands: [Commande]
   restaurants: [Restaurant]
 }
 

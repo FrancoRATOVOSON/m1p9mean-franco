@@ -1,4 +1,4 @@
-import { enumType, objectType } from 'nexus'
+import { enumType, inputObjectType, objectType } from 'nexus'
 
 export const Etat = enumType({
   name: 'Etat',
@@ -12,7 +12,15 @@ export const Etat = enumType({
 export const CommandeDetails = objectType({
   name: 'CommandeDetails',
   definition(t) {
-    t.string('menuId')
+    t.field('menu', { type: 'MenuReturnedType' })
+    t.int('quantite')
+  },
+})
+
+export const CommandeDetailsInput = inputObjectType({
+  name: 'CommandeDetailsInput',
+  definition(t) {
+    t.nonNull.string('menuId')
     t.int('quantite')
   },
 })
