@@ -1,0 +1,14 @@
+<div>
+  <img src="https://cdn.pixabay.com/photo/2017/09/28/20/49/plaice-2796910_960_720.jpg" alt="fried fish">
+  <div>
+    <div>
+      <div>
+        <h2>{{menu.nom}}</h2>
+        <span [ngClass]="{'hidden': ordered === 0}">{{ordered}}</span>
+      </div>
+      <h4>de <a [href]="'/restaurants/' + menu.restaurant.id">{{menu.restaurant.nom}}</a></h4>
+    </div>
+    <h4>à {{menu.prix | number: '1.0-0': 'fr-FR'}} MGA</h4>
+    <button type="button" (click)="onAddMenu()">Ajouter</button>
+  </div>
+</div>
