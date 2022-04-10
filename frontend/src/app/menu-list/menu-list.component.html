@@ -1,3 +1,5 @@
-<div>
-  <app-menu *ngFor="let menu of menus" [menu]="menu"></app-menu>
+<div class="card__list flex flex-row">
+  <div class="m-4" *ngFor="let menu of menus">
+    <app-menu [menu]="menu"></app-menu>
+  </div>
 </div>

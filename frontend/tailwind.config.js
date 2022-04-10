@@ -6,6 +6,9 @@ module.exports = {
         base: '0 2px 4px rgba(10, 30, 30, 0.3)',
         hover: '2px 4px 16px rgba(10, 30, 30, 0.6)',
       },
+      scale: {
+        101: '1.01',
+      },
     },
     fontFamily: {
       sans: ['Poppins', 'sans-serif'],

@@ -21,7 +21,7 @@
 
   .card {
     @apply my-0 mx-2 w-fit h-fit;
-    @apply rounded-2xl shadow-base hover:shadow-hover hover:scale-105;
+    @apply rounded-2xl shadow-base hover:shadow-hover hover:scale-101;
     @apply overflow-clip;
     @apply transition cursor-pointer;
   }

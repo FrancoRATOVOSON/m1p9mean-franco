@@ -4,6 +4,8 @@
   </div>
   <app-menu-list></app-menu-list>
   <div class="card-list">
-    <app-restaurant *ngFor="let resto of restaurants" [restaurant]="resto"></app-restaurant>
+    <div class="m-4" *ngFor="let resto of restaurants">
+      <app-restaurant [restaurant]="resto"></app-restaurant>
+    </div>
   </div>
 </div>
