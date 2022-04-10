@@ -9,6 +9,9 @@ module.exports = {
       scale: {
         101: '1.01',
       },
+      maxWidth: {
+        '2xs': '18rem',
+      },
     },
     fontFamily: {
       sans: ['Poppins', 'sans-serif'],
