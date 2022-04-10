@@ -1,0 +1,15 @@
+<form class="form" #loginForm="ngForm" (ngSubmit)="onSubmitForm(loginForm)">
+  <h1 class="formHeader">Heureux de vous revoir</h1>
+  <div class="formElement">
+    <label class="formLabel" for="email">Adresse email</label>
+    <input class="formField" type="email" id="email" name="email" [(ngModel)]="email">
+  </div>
+  <div class="formElement">
+    <label class="formLabel" for="password">Mot de passe</label>
+    <input class="formField" type="password" id="password" name="motDePasse" [(ngModel)]="motDePasse">
+  </div>
+  <div class="formAction">
+    <button class="cta w-52 mb-3">Se connecter</button>
+    <button class="secondAction w-52">Annuler</button>
+  </div>
+</form>

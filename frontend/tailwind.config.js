@@ -15,6 +15,7 @@ module.exports = {
     },
     fontFamily: {
       sans: ['Poppins', 'sans-serif'],
+      ekaly: ['Kalam'],
     },
   },
   plugins: [],

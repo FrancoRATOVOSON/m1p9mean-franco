@@ -1,0 +1,25 @@
+<form>
+  <h1 class="formHeader">Connexion</h1>
+  <div>
+    <label for="email">Adresse mail</label>
+    <input class="formField" type="email" id="email" name="email" [(ngModel)]="email">
+  </div>
+  <div>
+    <label for="password">Mot de passe</label>
+    <input class="formField" type="password" id="password" name="motDePasse" [(ngModel)]="motDePasse">
+  </div>
+  <div>
+    <div>
+      <label for="confirmpassword">Confirmer le mot de passe</label>
+      <input
+        type="password"
+        id="confirmpassword"
+        name="confirmmotDePasse"
+        class="formField"
+        [ngClass]="{ 'fieldError': passwordError }"
+        [(ngModel)]="confirmMotDePasse"
+        (ngModelChange)="onPasswordConfirm()"
+      >
+    </div>
+  </div>
+</form>

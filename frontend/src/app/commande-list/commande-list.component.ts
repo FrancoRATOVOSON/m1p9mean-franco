@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import Commande from '../models/Commande.model'
+import CommandeService from '../services/commande.service'
 
 @Component({
   selector: 'app-commande-list',
@@ -7,9 +8,11 @@ import Commande from '../models/Commande.model'
   styleUrls: ['./commande-list.component.css'],
 })
 export class CommandeListComponent implements OnInit {
-  @Input() commandes!: Commande[]
+  commandes!: Commande[]
 
-  constructor() {}
+  constructor(private commandeService: CommandeService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.commandes = this.commandeService.getCommandes()
+  }
 }

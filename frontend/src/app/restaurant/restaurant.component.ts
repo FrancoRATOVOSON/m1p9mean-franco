@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
 import Restaurant from '../models/Restaurant.model'
 
 @Component({
@@ -9,7 +10,11 @@ import Restaurant from '../models/Restaurant.model'
 export class RestaurantComponent implements OnInit {
   @Input() restaurant!: Restaurant
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
+
+  onVisit() {
+    this.router.navigateByUrl(`/restaurants/${this.restaurant.id}`)
+  }
 }

@@ -1,11 +1,2 @@
-<div>
-  <div class="card-list">
-    <app-commande-list [commandes]='commandes'></app-commande-list>
-  </div>
-  <app-menu-list></app-menu-list>
-  <div class="card-list">
-    <div class="m-4" *ngFor="let resto of restaurants">
-      <app-restaurant [restaurant]="resto"></app-restaurant>
-    </div>
-  </div>
-</div>
+<app-header></app-header>
+<router-outlet></router-outlet>
