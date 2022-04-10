@@ -1,3 +1,5 @@
 <div>
-  <app-commande *ngFor='let commande of commandes' [commande]='commande'></app-commande>
+  <div class="m-4" *ngFor="let commande of commandes">
+    <app-commande [commande]='commande'></app-commande>
+  </div>
 </div>

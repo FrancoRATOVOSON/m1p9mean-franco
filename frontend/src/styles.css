@@ -20,9 +20,8 @@
   }
 
   .card {
-    @apply my-0 mx-2;
-    @apply w-fit h-fit;
-    @apply rounded-2xl shadow-sm hover:shadow-md hover:scale-105;
+    @apply my-0 mx-2 w-fit h-fit;
+    @apply rounded-2xl shadow-base hover:shadow-hover hover:scale-105;
     @apply overflow-clip;
     @apply transition cursor-pointer;
   }
@@ -49,6 +48,10 @@
 
   .cta {
     @apply py-2 px-0 text-center text-white bg-orange-600 rounded-lg ;
+  }
+
+  .link {
+    @apply text-orange-600 font-semibold ;
   }
 }
 
