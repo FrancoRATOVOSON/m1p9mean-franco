@@ -1,4 +1,13 @@
-import { booleanArg, extendType, intArg, list, nonNull, stringArg } from 'nexus'
+import {
+  arg,
+  booleanArg,
+  extendType,
+  intArg,
+  list,
+  nonNull,
+  stringArg,
+} from 'nexus'
+import { uploadImageStream } from '../../database/cloudinary'
 import { createCommande, updateCommande } from '../../database/commandes'
 import { menuSelection } from '../../utils/consts'
 import {
@@ -20,13 +29,28 @@ const Mutation = extendType({
         nom: nonNull(stringArg()),
         prix: nonNull(intArg()),
         visible: booleanArg(),
+        imageFile: arg({ type: 'Upload' }),
       },
-      resolve(_, args, ctx: IGraphqlContext) {
+      async resolve(_, args, ctx: IGraphqlContext) {
         const { token, prisma } = ctx
         const restaurantId = verifyRestaurantAuthorization(token)
-        const { nom, prix, visible } = args
+        const { nom, prix, visible, imageFile } = args
+        const { createReadStream } = await imageFile
+        // console.log(imageFile)
+        const stream = createReadStream()
+        const uploadedImage: any = await uploadImageStream(
+          stream,
+          `menu/`,
+          `${restaurantId}_${nom.toLocaleLowerCase().split(' ').join('_')}`
+        )
         return prisma.menu.create({
-          data: { nom, prix, visible: visible || true, restaurantId },
+          data: {
+            nom,
+            prix,
+            visible: visible || true,
+            restaurantId,
+            photoUrl: uploadedImage.secure_url,
+          },
           select: menuSelection,
         })
       },

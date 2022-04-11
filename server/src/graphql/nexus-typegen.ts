@@ -11,6 +11,10 @@ declare global {
      * A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
      */
     date<FieldName extends string>(fieldName: FieldName, opts?: core.CommonInputFieldConfig<TypeName, FieldName>): void // "Date";
+    /**
+     * The `Upload` scalar type represents a file upload.
+     */
+    Upload<FieldName extends string>(fieldName: FieldName, opts?: core.CommonInputFieldConfig<TypeName, FieldName>): void // "Upload";
   }
 }
 declare global {
@@ -19,6 +23,10 @@ declare global {
      * A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
      */
     date<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "Date";
+    /**
+     * The `Upload` scalar type represents a file upload.
+     */
+    Upload<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "Upload";
   }
 }
 
@@ -45,6 +53,7 @@ export interface NexusGenScalars {
   Boolean: boolean
   ID: string
   Date: any
+  Upload: any
 }
 
 export interface NexusGenObjects {
@@ -53,6 +62,7 @@ export interface NexusGenObjects {
     commandes?: Array<NexusGenRootTypes['Commande'] | null> | null; // [Commande]
     id: string; // String!
     nom?: string | null; // String
+    photoUrl?: string | null; // String
     prenom?: string | null; // String
   }
   Commande: { // root type
@@ -67,6 +77,11 @@ export interface NexusGenObjects {
     menu?: NexusGenRootTypes['MenuReturnedType'] | null; // MenuReturnedType
     quantite?: number | null; // Int
   }
+  File: { // root type
+    encoding: string; // String!
+    filename: string; // String!
+    mimetype: string; // String!
+  }
   Livreur: { // root type
     id: string; // String!
     livraisons?: Array<NexusGenRootTypes['Commande'] | null> | null; // [Commande]
@@ -76,6 +91,7 @@ export interface NexusGenObjects {
   Menu: { // root type
     id?: string | null; // String
     nom?: string | null; // String
+    photoUrl?: string | null; // String
     prix?: number | null; // Int
     restaurant?: NexusGenRootTypes['Restaurant'] | null; // Restaurant
     visible?: boolean | null; // Boolean
@@ -83,6 +99,7 @@ export interface NexusGenObjects {
   MenuReturnedType: { // root type
     id?: string | null; // String
     nom?: string | null; // String
+    photoUrl?: string | null; // String
     prix?: number | null; // Int
     restaurant?: NexusGenRootTypes['Restaurant'] | null; // Restaurant
   }
@@ -92,6 +109,7 @@ export interface NexusGenObjects {
     adresse?: string | null; // String
     id: string; // String!
     nom: string; // String!
+    photoUrl?: string | null; // String
   }
 }
 
@@ -111,6 +129,7 @@ export interface NexusGenFieldTypes {
     commandes: Array<NexusGenRootTypes['Commande'] | null> | null; // [Commande]
     id: string; // String!
     nom: string | null; // String
+    photoUrl: string | null; // String
     prenom: string | null; // String
   }
   Commande: { // field return type
@@ -125,6 +144,11 @@ export interface NexusGenFieldTypes {
     menu: NexusGenRootTypes['MenuReturnedType'] | null; // MenuReturnedType
     quantite: number | null; // Int
   }
+  File: { // field return type
+    encoding: string; // String!
+    filename: string; // String!
+    mimetype: string; // String!
+  }
   Livreur: { // field return type
     id: string; // String!
     livraisons: Array<NexusGenRootTypes['Commande'] | null> | null; // [Commande]
@@ -134,6 +158,7 @@ export interface NexusGenFieldTypes {
   Menu: { // field return type
     id: string | null; // String
     nom: string | null; // String
+    photoUrl: string | null; // String
     prix: number | null; // Int
     restaurant: NexusGenRootTypes['Restaurant'] | null; // Restaurant
     visible: boolean | null; // Boolean
@@ -141,6 +166,7 @@ export interface NexusGenFieldTypes {
   MenuReturnedType: { // field return type
     id: string | null; // String
     nom: string | null; // String
+    photoUrl: string | null; // String
     prix: number | null; // Int
     restaurant: NexusGenRootTypes['Restaurant'] | null; // Restaurant
   }
@@ -165,6 +191,7 @@ export interface NexusGenFieldTypes {
     adresse: string | null; // String
     id: string; // String!
     nom: string; // String!
+    photoUrl: string | null; // String
   }
 }
 
@@ -174,6 +201,7 @@ export interface NexusGenFieldTypeNames {
     commandes: 'Commande'
     id: 'String'
     nom: 'String'
+    photoUrl: 'String'
     prenom: 'String'
   }
   Commande: { // field return type name
@@ -188,6 +216,11 @@ export interface NexusGenFieldTypeNames {
     menu: 'MenuReturnedType'
     quantite: 'Int'
   }
+  File: { // field return type name
+    encoding: 'String'
+    filename: 'String'
+    mimetype: 'String'
+  }
   Livreur: { // field return type name
     id: 'String'
     livraisons: 'Commande'
@@ -197,6 +230,7 @@ export interface NexusGenFieldTypeNames {
   Menu: { // field return type name
     id: 'String'
     nom: 'String'
+    photoUrl: 'String'
     prix: 'Int'
     restaurant: 'Restaurant'
     visible: 'Boolean'
@@ -204,6 +238,7 @@ export interface NexusGenFieldTypeNames {
   MenuReturnedType: { // field return type name
     id: 'String'
     nom: 'String'
+    photoUrl: 'String'
     prix: 'Int'
     restaurant: 'Restaurant'
   }
@@ -228,6 +263,7 @@ export interface NexusGenFieldTypeNames {
     adresse: 'String'
     id: 'String'
     nom: 'String'
+    photoUrl: 'String'
   }
 }
 
@@ -241,6 +277,7 @@ export interface NexusGenArgTypes {
       visible: boolean; // Boolean!
     }
     createMenu: { // args
+      imageFile?: NexusGenScalars['Upload'] | null; // Upload
       nom: string; // String!
       prix: number; // Int!
       visible?: boolean | null; // Boolean

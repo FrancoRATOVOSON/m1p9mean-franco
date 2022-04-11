@@ -7,6 +7,7 @@ type Client {
   commandes: [Commande]
   id: String!
   nom: String
+  photoUrl: String
   prenom: String
 }
 
@@ -46,6 +47,12 @@ enum Etat {
   LIVREE
 }
 
+type File {
+  encoding: String!
+  filename: String!
+  mimetype: String!
+}
+
 type Livreur {
   id: String!
   livraisons: [Commande]
@@ -56,6 +63,7 @@ type Livreur {
 type Menu {
   id: String
   nom: String
+  photoUrl: String
   prix: Int
   restaurant: Restaurant
   visible: Boolean
@@ -64,6 +72,7 @@ type Menu {
 type MenuReturnedType {
   id: String
   nom: String
+  photoUrl: String
   prix: Int
   restaurant: Restaurant
 }
@@ -71,7 +80,7 @@ type MenuReturnedType {
 type Mutation {
   cancelOrder(commandeId: String!): Commande
   changeMenuVisibility(menuId: String!, visible: Boolean!): Menu
-  createMenu(nom: String!, prix: Int!, visible: Boolean): Menu
+  createMenu(imageFile: Upload, nom: String!, prix: Int!, visible: Boolean): Menu
   deleteMenu(menuId: String!): Menu
   deliverOrder(commandeId: String!): Commande
   makeOrder(menus: [CommandeDetailsInput!]!): Commande
@@ -91,4 +100,8 @@ type Restaurant {
   adresse: String
   id: String!
   nom: String!
+  photoUrl: String
 }
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload

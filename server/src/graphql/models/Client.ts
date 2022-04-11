@@ -7,6 +7,7 @@ export default objectType({
     t.string('nom')
     t.string('prenom')
     t.string('adresse')
+    t.string('photoUrl')
     t.list.field('commandes', {
       type: 'Commande',
     })

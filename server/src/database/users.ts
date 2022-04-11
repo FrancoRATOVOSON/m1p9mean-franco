@@ -43,11 +43,18 @@ export async function createLivreur(livreur: ILivreur) {
   })
 }
 export async function createRestaurant(restaurant: IRestaurant) {
-  const { email, motDePasse, photoUrl, ...restaurantData } = restaurant
+  const { email, motDePasse, photoUrl, nom, ...restaurantData } = restaurant
   return prisma.restaurant.create({
     data: {
       ...restaurantData,
-      photoUrl: await uploadImage(photoUrl, 'restaurant', email.split('@')[0]),
+      nom,
+      photoUrl: await uploadImage(
+        photoUrl,
+        'restaurant',
+        `${nom.toLocaleLowerCase().split(' ').join('_')}}_${
+          email.split('@')[0]
+        }`
+      ),
       compte: {
         email,
         motDePasse: await hashPassword(motDePasse),

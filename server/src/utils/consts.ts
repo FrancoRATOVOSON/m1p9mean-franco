@@ -24,6 +24,7 @@ export const commandeSelection: Prisma.CommandeSelect = {
       nom: true,
       prenom: true,
       adresse: true,
+      photoUrl: true,
     },
   },
   etat: true,
@@ -32,6 +33,7 @@ export const commandeSelection: Prisma.CommandeSelect = {
       id: true,
       nom: true,
       prenom: true,
+      photoUrl: true,
     },
   },
   details: true,
@@ -41,12 +43,16 @@ export const menuSelection: Prisma.MenuSelect = {
   id: true,
   nom: true,
   prix: true,
+  photoUrl: true,
   visible: true,
 }
 
 export const menuRestaurantSelection: Prisma.MenuSelect = {
   id: true,
   nom: true,
+  photoUrl: true,
   prix: true,
-  restaurant: { select: { id: true, nom: true, adresse: true } },
+  restaurant: {
+    select: { id: true, nom: true, photoUrl: true, adresse: true },
+  },
 }

@@ -5,6 +5,7 @@ const Restaurant = objectType({
   definition(t) {
     t.nonNull.string('id')
     t.nonNull.string('nom')
+    t.string('photoUrl')
     t.string('adresse')
   },
 })

@@ -8,6 +8,7 @@ import {
 } from '@prisma/client'
 import { asNexusMethod } from 'nexus'
 import { GraphQLDate } from 'graphql-scalars'
+import { GraphQLUpload } from 'graphql-upload'
 
 interface ICompte extends Compte {}
 
@@ -57,3 +58,5 @@ export interface IGraphqlContext {
 }
 
 export const GQLDate = asNexusMethod(GraphQLDate, 'date')
+
+export const GQLUpload = asNexusMethod(GraphQLUpload, 'Upload')

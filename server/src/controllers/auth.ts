@@ -14,7 +14,14 @@ export const signup: RequestHandler = async (req: Request, res: Response) => {
       res.status(400).send('User already exists')
       return
     }
-    const createdUser = await createUser(userType, req.body)
+    const createdUser = await createUser(userType, {
+      ...req.body,
+      photoUrl: {
+        originalname: (req as any).file.originalname,
+        mimetype: (req as any).file.mimetype,
+        buffer: (req as any).file.buffer,
+      },
+    })
     const returnedUser = returnUser(userType, createdUser)
     res.status(200).send({
       user: returnedUser,

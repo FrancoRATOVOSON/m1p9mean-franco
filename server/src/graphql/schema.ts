@@ -1,6 +1,6 @@
 import { makeSchema } from 'nexus'
 import { join } from 'path'
-import { GQLDate } from '../utils/types'
+import { GQLDate, GQLUpload } from '../utils/types'
 import {
   Menu,
   Restaurant,
@@ -13,11 +13,14 @@ import {
   CommandeDetails,
   Livreur,
   CommandeDetailsInput,
+  FileType,
 } from './models'
 
 const schema = makeSchema({
   types: [
     GQLDate,
+    GQLUpload,
+    FileType,
     Etat,
     Restaurant,
     Menu,

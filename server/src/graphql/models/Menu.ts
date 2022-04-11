@@ -4,7 +4,7 @@ const Menu = objectType({
   name: 'Menu',
   definition(t) {
     t.string('id')
-    t.string('imageUrl')
+    t.string('photoUrl')
     t.string('nom')
     t.int('prix')
     t.boolean('visible')
@@ -17,6 +17,7 @@ export const MenuReturnedType = objectType({
   definition(t) {
     t.string('id')
     t.string('nom')
+    t.string('photoUrl')
     t.int('prix')
     t.field('restaurant', { type: 'Restaurant' })
   },

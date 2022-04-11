@@ -1,5 +1,6 @@
 import http from 'http'
 import dotenv from 'dotenv'
+import { graphqlUploadExpress } from 'graphql-upload'
 import app from './servers/express'
 import createApolloServer from './servers/apollo'
 import schema from './graphql/schema'
@@ -12,6 +13,8 @@ async function start() {
   const server = createApolloServer(schema, context, httpServer)
 
   await server.start()
+
+  app.use(graphqlUploadExpress())
   server.applyMiddleware({ app })
   await new Promise<void>(resolve =>
     // eslint-disable-next-line no-promise-executor-return

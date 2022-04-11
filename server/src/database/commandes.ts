@@ -12,6 +12,7 @@ async function getCommadeDetails(client: PrismaClient, subjectCommand) {
           id: true,
           nom: true,
           prix: true,
+          photoUrl: true,
           restaurant: {
             select: { id: true, nom: true, adresse: true },
           },

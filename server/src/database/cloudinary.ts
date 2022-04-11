@@ -1,5 +1,5 @@
-/* eslint-disable import/prefer-default-export */
 import { v2 as cloudinary } from 'cloudinary'
+import { ReadStream } from 'fs'
 import { bufferToBase64 } from '../utils/functions'
 import { IImageType } from '../utils/types'
 
@@ -25,4 +25,27 @@ export async function uploadImage(
   )
 
   return uploadedFile.secure_url
+}
+
+export function uploadImageStream(
+  readStream: ReadStream,
+  folder: string,
+  public_id?: string
+) {
+  return new Promise((resolve, reject) => {
+    const uploadStream = cloudinary.uploader.upload_stream(
+      {
+        resource_type: 'image',
+        public_id,
+        folder: `ekaly/${folder}`,
+        overwrite: true,
+      },
+      (error, result) => {
+        if (result) resolve(result)
+        else reject(error)
+      }
+    )
+
+    readStream.pipe(uploadStream)
+  })
 }
