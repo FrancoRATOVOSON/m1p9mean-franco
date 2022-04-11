@@ -1,25 +1,51 @@
-<form>
-  <h1 class="formHeader">Connexion</h1>
-  <div>
-    <label for="email">Adresse mail</label>
-    <input class="formField" type="email" id="email" name="email" [(ngModel)]="email">
+<form class="form" #loginForm="ngForm" (ngSubmit)="onSubmitForm(loginForm)">
+  <div class="max-w-sm">
+    <h1 class="formHeader">Heureux de vous recevoir</h1>
+    <div class="flex flex-col justify-start items-center">
+      <label class="formLabel" for="email">Premièrement nous voulons savoir le type de compte que vous souhaitez</label>
+      <select>
+        <option *ngFor="let usertype of userTypes" [ngValue]="usertype">{{usertype}}/option>
+      </select>
+      <input class="formField" type="email" id="email" name="email" [(ngModel)]="email">
+    </div>
+    <div class="formElement">
+      <label class="formLabel" for="password">Mot de passe</label>
+      <input class="formField" type="password" id="password" name="motDePasse" [(ngModel)]="motDePasse">
+    </div>
+    <div class="formElement">
+        <label class="formLabel" for="confirmpassword">Confirmer le mot de passe</label>
+        <input
+          type="password"
+          id="confirmpassword"
+          name="confirmmotDePasse"
+          class="formField"
+          [ngClass]="{ 'fieldError': !passwordError }"
+          [(ngModel)]="confirmMotDePasse"
+          (ngModelChange)="onPasswordConfirm()"
+        >
+    </div>
   </div>
   <div>
-    <label for="password">Mot de passe</label>
-    <input class="formField" type="password" id="password" name="motDePasse" [(ngModel)]="motDePasse">
-  </div>
-  <div>
-    <div>
-      <label for="confirmpassword">Confirmer le mot de passe</label>
-      <input
-        type="password"
-        id="confirmpassword"
-        name="confirmmotDePasse"
-        class="formField"
-        [ngClass]="{ 'fieldError': passwordError }"
-        [(ngModel)]="confirmMotDePasse"
-        (ngModelChange)="onPasswordConfirm()"
-      >
+    <h1 class="formHeader">Dernière étape</h1>
+    <div class="formElement">
+      <label class="formLabel" for="email">Adresse mail</label>
+      <input class="formField" type="email" id="email" name="email" [(ngModel)]="email">
+    </div>
+    <div class="formElement">
+      <label class="formLabel" for="password">Mot de passe</label>
+      <input class="formField" type="password" id="password" name="motDePasse" [(ngModel)]="motDePasse">
+    </div>
+    <div class="formElement">
+        <label class="formLabel" for="confirmpassword">Confirmer le mot de passe</label>
+        <input
+          type="password"
+          id="confirmpassword"
+          name="confirmmotDePasse"
+          class="formField"
+          [ngClass]="{ 'fieldError': !passwordError }"
+          [(ngModel)]="confirmMotDePasse"
+          (ngModelChange)="onPasswordConfirm()"
+        >
     </div>
   </div>
 </form>

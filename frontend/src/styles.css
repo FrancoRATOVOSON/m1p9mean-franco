@@ -74,8 +74,8 @@
   }
 
   .cta-white {
-    @apply py-4 text-center text-orange-600 bg-white rounded-lg;
-    @apply hover:bg-orange-700;
+    @apply py-4 text-center text-orange-600 border border-orange-600 rounded-lg;
+    @apply hover:border-orange-700 hover:text-orange-700 hover:bg-white;
   }
 
   .cta-icon {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { NgForm } from '@angular/forms'
 
 @Component({
   selector: 'app-signup-form',
@@ -10,12 +11,18 @@ export class SignupFormComponent implements OnInit {
   motDePasse!: string
   confirmMotDePasse!: string
   passwordError!: boolean
+  selectedUserType!: string
+  userTypes!: string[]
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.userTypes = ['admin', 'client', 'livreur', 'restaurant']
+  }
 
   onPasswordConfirm() {
     this.passwordError = this.motDePasse === this.confirmMotDePasse
   }
+
+  onSubmitForm(ngForm: NgForm) {}
 }

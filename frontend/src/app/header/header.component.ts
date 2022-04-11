@@ -8,18 +8,24 @@ import { Router } from '@angular/router'
 })
 export class HeaderComponent implements OnInit {
   asideOpen!: boolean
+  isLoggedIn!: boolean
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.asideOpen = false
-  }
-
-  toCommandes() {
-    this.router.navigateByUrl('commandes')
+    this.isLoggedIn = false
   }
 
   onAsideToggle(open: boolean) {
     this.asideOpen = open
+  }
+
+  onSignupClick() {
+    this.router.navigateByUrl('signup')
+  }
+
+  onLoginClick() {
+    this.router.navigateByUrl('login')
   }
 }
