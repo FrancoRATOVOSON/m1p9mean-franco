@@ -25,6 +25,7 @@ model Client {
   nom String
   prenom String
   adresse String
+  photoUrl String?
   compte Compte
   commandes Commande[]
 }
@@ -33,6 +34,7 @@ model Livreur {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   nom String
   prenom String
+  photoUrl String?
   compte Compte
   livraisons Commande[]
 }
@@ -41,12 +43,14 @@ model Restaurant {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   nom String
   adresse String
+  photoUrl String?
   compte Compte
   menus Menu[]
 }
 
 model Menu {
   id String @id @default(auto()) @map("_id") @db.ObjectId
+  photoUrl String?
   nom String
   prix Int
   visible Boolean @default(true)

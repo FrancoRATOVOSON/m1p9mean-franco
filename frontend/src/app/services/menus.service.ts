@@ -21,4 +21,8 @@ export default class MenusService {
   getAllMenus() {
     return this.menus
   }
+
+  getMenusByrestaurant(restaurantId: string) {
+    return this.menus.filter(menu => menu.restaurant.id === restaurantId)
+  }
 }

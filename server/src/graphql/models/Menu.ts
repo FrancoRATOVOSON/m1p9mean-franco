@@ -4,6 +4,7 @@ const Menu = objectType({
   name: 'Menu',
   definition(t) {
     t.string('id')
+    t.string('imageUrl')
     t.string('nom')
     t.int('prix')
     t.boolean('visible')

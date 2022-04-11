@@ -1,8 +1,6 @@
-import Menu from "./Menu.model";
-
 export default class Restaurant {
-  public menus:{
-    id: string,
+  public menus: {
+    id: string
     nom: string
   }[]
 
@@ -10,8 +8,9 @@ export default class Restaurant {
     public id: string,
     public nom: string,
     public adresse: string,
-    menus?:{
-      id: string,
+    public description: string,
+    menus?: {
+      id: string
       nom: string
     }[]
   ) {

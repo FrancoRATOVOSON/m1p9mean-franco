@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
 import MenusService from '../services/menus.service'
 import Menu from '../models/Menu.model'
 
@@ -8,11 +8,14 @@ import Menu from '../models/Menu.model'
   styleUrls: ['./menu-list.component.css'],
 })
 export class MenuListComponent implements OnInit {
+  @Input() restaurantId?: string
   menus!: Menu[]
 
   constructor(private menusService: MenusService) {}
 
   ngOnInit(): void {
-    this.menus = this.menusService.getAllMenus()
+    this.menus = this.restaurantId
+      ? this.menusService.getMenusByrestaurant(this.restaurantId)
+      : this.menusService.getAllMenus()
   }
 }

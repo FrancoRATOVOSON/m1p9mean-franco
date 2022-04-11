@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 import { CommandeListComponent } from './commande-list/commande-list.component'
 import { HomePageComponent } from './home-page/home-page.component'
-import { MenuListComponent } from './menu-list/menu-list.component'
-import { RestaurantListComponent } from './restaurant-list/restaurant-list.component'
+import { MenuPageComponent } from './menu-page/menu-page.component'
 import { RestaurantPageComponent } from './restaurant-page/restaurant-page.component'
+import { RestaurantsPageComponent } from './restaurants-page/restaurants-page.component'
 
 const routes: Routes = [
   {
@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: 'restaurants',
-    component: RestaurantListComponent,
+    component: RestaurantsPageComponent,
   },
   {
     path: 'restaurants/:id',
@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'menus',
-    component: MenuListComponent,
+    component: MenuPageComponent,
   },
   {
     path: 'commandes',

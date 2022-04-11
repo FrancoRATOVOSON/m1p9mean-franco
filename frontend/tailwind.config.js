@@ -12,6 +12,10 @@ module.exports = {
       maxWidth: {
         '2xs': '18rem',
       },
+      spacing: {
+        100: '25rem',
+        128: '32rem',
+      },
     },
     fontFamily: {
       sans: ['Poppins', 'sans-serif'],

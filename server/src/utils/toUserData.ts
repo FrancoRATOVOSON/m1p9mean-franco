@@ -1,5 +1,5 @@
 import { UserDatasError } from './errors'
-import { IAdmin, IClient, ILivreur, IRestaurant } from './interfaces'
+import { IAdmin, IClient, ILivreur, IRestaurant } from './types'
 
 export function toAdminData(userData: any): IAdmin {
   if (!userData.email) throw new UserDatasError('email')

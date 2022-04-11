@@ -1,5 +1,5 @@
 .navLink {
-  @apply m-2 hover:text-orange-600;
+  @apply mx-4 hover:text-orange-600;
 }
 
 .activeLink {

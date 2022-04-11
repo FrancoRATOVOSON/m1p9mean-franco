@@ -17,7 +17,10 @@ import { LoginFormComponent } from './login-form/login-form.component'
 import { SignupFormComponent } from './signup-form/signup-form.component'
 import { HomePageComponent } from './home-page/home-page.component'
 import { LoginPageComponent } from './login-page/login-page.component'
-import { SignupPageComponent } from './signup-page/signup-page.component'
+import { SignupPageComponent } from './signup-page/signup-page.component';
+import { EkalySvgComponent } from './ekaly-svg/ekaly-svg.component';
+import { MenuPageComponent } from './menu-page/menu-page.component';
+import { RestaurantsPageComponent } from './restaurants-page/restaurants-page.component'
 
 @NgModule({
   declarations: [
@@ -35,6 +38,9 @@ import { SignupPageComponent } from './signup-page/signup-page.component'
     HomePageComponent,
     LoginPageComponent,
     SignupPageComponent,
+    EkalySvgComponent,
+    MenuPageComponent,
+    RestaurantsPageComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [{ provide: LOCALE_ID, useValue: 'fr-FR' }],
