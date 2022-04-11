@@ -1,6 +1,7 @@
 import { IAdmin, IClient, ILivreur, IRestaurant } from '../utils/types'
 import { hashPassword } from '../utils/tools'
 import prisma from './prisma'
+import { uploadImage } from './cloudinary'
 
 export async function createAdmin(admin: IAdmin) {
   const { email, motDePasse, ...adminData } = admin
@@ -16,10 +17,11 @@ export async function createAdmin(admin: IAdmin) {
 }
 
 export async function createClient(client: IClient) {
-  const { email, motDePasse, ...clientData } = client
+  const { email, motDePasse, photoUrl, ...clientData } = client
   return prisma.client.create({
     data: {
       ...clientData,
+      photoUrl: await uploadImage(photoUrl, 'client', email.split('@')[0]),
       compte: {
         email,
         motDePasse: await hashPassword(motDePasse),
@@ -28,10 +30,11 @@ export async function createClient(client: IClient) {
   })
 }
 export async function createLivreur(livreur: ILivreur) {
-  const { email, motDePasse, ...livreurData } = livreur
+  const { email, motDePasse, photoUrl, ...livreurData } = livreur
   return prisma.livreur.create({
     data: {
       ...livreurData,
+      photoUrl: await uploadImage(photoUrl, 'livreur', email.split('@')[0]),
       compte: {
         email,
         motDePasse: await hashPassword(motDePasse),
@@ -40,10 +43,11 @@ export async function createLivreur(livreur: ILivreur) {
   })
 }
 export async function createRestaurant(restaurant: IRestaurant) {
-  const { email, motDePasse, ...restaurantData } = restaurant
+  const { email, motDePasse, photoUrl, ...restaurantData } = restaurant
   return prisma.restaurant.create({
     data: {
       ...restaurantData,
+      photoUrl: await uploadImage(photoUrl, 'restaurant', email.split('@')[0]),
       compte: {
         email,
         motDePasse: await hashPassword(motDePasse),

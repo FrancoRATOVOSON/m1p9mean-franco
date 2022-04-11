@@ -115,3 +115,7 @@ export function verifyClientAndRestaurantAuthorization(token: string) {
     throw new UnauthorizedActionError()
   return decodedToken['userID']
 }
+
+export function bufferToBase64(buffer: Buffer): string {
+  return Buffer.from(buffer).toString('base64')
+}

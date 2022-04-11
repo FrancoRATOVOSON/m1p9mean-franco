@@ -30,14 +30,16 @@ export const signup: RequestHandler = async (req: Request, res: Response) => {
 
 export const login: RequestHandler = async (req: Request, res: Response) => {
   const { userType } = req.params
-  const { email, motDePasse } = req.body
+  const { email, motDePasse } = req.query
   try {
-    const userFound = await findUserByMail(userType, email)
+    const userFound = await findUserByMail(userType, email as string)
     if (!userFound) {
       res.status(400).send("User doesn't exists")
       return
     }
-    if (await comparePassword(motDePasse, userFound.compte.motDePasse)) {
+    if (
+      await comparePassword(motDePasse as string, userFound.compte.motDePasse)
+    ) {
       const returnedUser = returnUser(userType, userFound)
       res.status(200).send({
         user: returnedUser,

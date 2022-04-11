@@ -17,6 +17,7 @@
         "prettier"
     ],
     "rules": {
+        "camelcase": "off",
         "dot-notation": "off",
         "consistent-return": "off",
         "prettier/prettier": "warn",

@@ -15,16 +15,27 @@ export interface IAdmin extends Omit<Admin, 'id'>, ICompte {
   id?: string
 }
 
-export interface IClient extends Omit<Client, 'id'>, ICompte {
+export interface IClient extends Omit<Client, 'id' | 'photoUrl'>, ICompte {
   id?: string
+  photoUrl: IImageType
 }
 
-export interface ILivreur extends Omit<Livreur, 'id'>, ICompte {
+export interface ILivreur extends Omit<Livreur, 'id' | 'photoUrl'>, ICompte {
   id?: string
+  photoUrl: IImageType
 }
 
-export interface IRestaurant extends Omit<Restaurant, 'id'>, ICompte {
+export interface IRestaurant
+  extends Omit<Restaurant, 'id' | 'photoUrl'>,
+    ICompte {
   id?: string
+  photoUrl: IImageType
+}
+
+export interface IImageType {
+  originalname: string
+  mimetype: string
+  buffer: Buffer
 }
 
 export interface IUserType
