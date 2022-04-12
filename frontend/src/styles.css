@@ -93,7 +93,8 @@
   }
 
   .form {
-    @apply p-4 w-fit h-fit m-auto;
+    @apply p-6 w-fit h-fit m-auto rounded-2xl;
+    @apply bg-white;
   }
 
   .formElement {

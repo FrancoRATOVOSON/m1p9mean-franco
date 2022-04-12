@@ -16,6 +16,9 @@ module.exports = {
         100: '25rem',
         128: '32rem',
       },
+      borderWidth: {
+        10: '10px',
+      },
     },
     fontFamily: {
       sans: ['Poppins', 'sans-serif'],

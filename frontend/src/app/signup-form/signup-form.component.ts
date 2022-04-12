@@ -7,22 +7,36 @@ import { NgForm } from '@angular/forms'
   styleUrls: ['./signup-form.component.css'],
 })
 export class SignupFormComponent implements OnInit {
+  usertype!: string
+  nom!: string
   email!: string
   motDePasse!: string
   confirmMotDePasse!: string
   passwordError!: boolean
   selectedUserType!: string
   userTypes!: string[]
+  step!: string
 
   constructor() {}
 
   ngOnInit(): void {
-    this.userTypes = ['admin', 'client', 'livreur', 'restaurant']
+    this.userTypes = ['client', 'restaurant', 'livreur', 'admin']
+    this.usertype = this.userTypes[0]
+    this.step = 'userType'
   }
 
   onPasswordConfirm() {
     this.passwordError = this.motDePasse === this.confirmMotDePasse
   }
 
-  onSubmitForm(ngForm: NgForm) {}
+  onSubmitForm(ngForm: NgForm) {
+    console.log(ngForm)
+  }
+
+  onNextStep(nextStep: string) {
+    this.step = 'loading'
+    setTimeout(() => {
+      this.step = nextStep
+    }, 500)
+  }
 }

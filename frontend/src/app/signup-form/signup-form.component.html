@@ -1,31 +1,60 @@
-<form class="form" #loginForm="ngForm" (ngSubmit)="onSubmitForm(loginForm)">
-  <div class="max-w-sm">
+<form class="form flex flex-row justify-between items-center" #loginForm="ngForm" (ngSubmit)="onSubmitForm(loginForm)">
+  <div class="max-w-sm" [ngClass]="{ 'hidden': step !== 'userType'}">
     <h1 class="formHeader">Heureux de vous recevoir</h1>
     <div class="flex flex-col justify-start items-center">
-      <label class="formLabel" for="email">Premièrement nous voulons savoir le type de compte que vous souhaitez</label>
-      <select>
-        <option *ngFor="let usertype of userTypes" [ngValue]="usertype">{{usertype}}/option>
+      <label class="formLabel tracking-wide" for="userType">
+        Premièrement nous voulons savoir le type de compte que vous souhaitez
+      </label>
+      <select class="selectField" name="userType" id="userType" [(ngModel)]="usertype">
+        <option *ngFor="let usertype of userTypes" [ngValue]="usertype">{{usertype}}</option>
       </select>
+    </div>
+    <div class="formAction">
+      <button class="cta w-52 mb-3" (click)="onNextStep(usertype !== 'admin' ? 'userInfos' : 'userLogin')">
+        Suivant
+      </button>
+    </div>
+  </div>
+
+  <div class="load" [ngClass]="{ 'hidden': step !== 'loading'}"></div>
+
+  <div [ngClass]="{ 'hidden': step !== 'userInfos'}">
+    <h1 class="formHeader">Entrez vos informations</h1>
+    <div class="formElement">
+      <label class="formLabel" for="email">
+        {{usertype === 'restaurant' ? 'Le nom de votre restaurant' : 'Votre nom'}}
+      </label>
+      <input class="formField" type="email" id="email" name="email" [(ngModel)]="email">
+    </div>
+    <div class="formElement" [ngClass]="{'hidden': usertype === 'restaurant'}">
+      <label class="formLabel" for="email">
+        Votre prénom
+      </label>
+      <input class="formField" type="email" id="email" name="email" [(ngModel)]="email">
+    </div>
+    <div class="formElement" [ngClass]="{'hidden': usertype === 'livreur'}" >
+      <label class="formLabel" for="email">
+        Votre adresse
+      </label>
       <input class="formField" type="email" id="email" name="email" [(ngModel)]="email">
     </div>
     <div class="formElement">
-      <label class="formLabel" for="password">Mot de passe</label>
-      <input class="formField" type="password" id="password" name="motDePasse" [(ngModel)]="motDePasse">
+      <label class="formLabel" for="email">
+        {{usertype === 'restaurant' ? 'Une belle photo pour votre couverture' : 'La photo pour votre profile'}}
+      </label>
+      <input class="formField" type="email" id="email" name="email" [(ngModel)]="email">
     </div>
-    <div class="formElement">
-        <label class="formLabel" for="confirmpassword">Confirmer le mot de passe</label>
-        <input
-          type="password"
-          id="confirmpassword"
-          name="confirmmotDePasse"
-          class="formField"
-          [ngClass]="{ 'fieldError': !passwordError }"
-          [(ngModel)]="confirmMotDePasse"
-          (ngModelChange)="onPasswordConfirm()"
-        >
+    <div class="formAction">
+      <button class="cta w-52 mb-3" (click)="onNextStep('userLogin')">
+        Suivant
+      </button>
+      <button class="secondAction w-52" (click)="onNextStep('userType')">
+        Précedent
+      </button>
     </div>
   </div>
-  <div>
+
+  <div [ngClass]="{ 'hidden': step !== 'userLogin'}">
     <h1 class="formHeader">Dernière étape</h1>
     <div class="formElement">
       <label class="formLabel" for="email">Adresse mail</label>
@@ -36,7 +65,9 @@
       <input class="formField" type="password" id="password" name="motDePasse" [(ngModel)]="motDePasse">
     </div>
     <div class="formElement">
-        <label class="formLabel" for="confirmpassword">Confirmer le mot de passe</label>
+        <label class="formLabel" for="confirmpassword">
+          Confirmer le mot de passe
+        </label>
         <input
           type="password"
           id="confirmpassword"
@@ -46,6 +77,14 @@
           [(ngModel)]="confirmMotDePasse"
           (ngModelChange)="onPasswordConfirm()"
         >
+    </div>
+    <div class="formAction">
+      <button class="cta w-52 mb-3">
+        Valider
+      </button>
+      <button class="secondAction w-52" (click)="onNextStep(usertype !== 'admin' ? 'userInfos' : 'userType')">
+        Précedent
+      </button>
     </div>
   </div>
 </form>
