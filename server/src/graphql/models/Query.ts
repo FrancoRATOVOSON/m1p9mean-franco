@@ -26,6 +26,9 @@ const Query = extendType({
       type: 'MenuReturnedType',
       resolve(_: any, _args: any, ctx: IGraphqlContext) {
         return ctx.prisma.menu.findMany({
+          where: {
+            visible: true,
+          },
           select: menuRestaurantSelection,
         })
       },

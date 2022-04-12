@@ -7,6 +7,7 @@ import { MenuPageComponent } from './menu-page/menu-page.component'
 import { RestaurantPageComponent } from './restaurant-page/restaurant-page.component'
 import { RestaurantsPageComponent } from './restaurants-page/restaurants-page.component'
 import { SignupPageComponent } from './signup-page/signup-page.component'
+import { UserPageComponent } from './user-page/user-page.component'
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
   {
     path: 'signup',
     component: SignupPageComponent,
+  },
+  {
+    path: 'account',
+    component: UserPageComponent,
   },
 ]
 

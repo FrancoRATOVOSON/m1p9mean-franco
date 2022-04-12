@@ -22,6 +22,11 @@ import { SignupPageComponent } from './signup-page/signup-page.component'
 import { EkalySvgComponent } from './ekaly-svg/ekaly-svg.component'
 import { MenuPageComponent } from './menu-page/menu-page.component'
 import { RestaurantsPageComponent } from './restaurants-page/restaurants-page.component'
+import { UserPageComponent } from './user-page/user-page.component'
+import { UserClientComponent } from './user-client/user-client.component'
+import { UserRestaurantComponent } from './user-restaurant/user-restaurant.component'
+import { UserAdminComponent } from './user-admin/user-admin.component'
+import { UserLivreurComponent } from './user-livreur/user-livreur.component'
 
 @NgModule({
   declarations: [
@@ -42,6 +47,11 @@ import { RestaurantsPageComponent } from './restaurants-page/restaurants-page.co
     EkalySvgComponent,
     MenuPageComponent,
     RestaurantsPageComponent,
+    UserPageComponent,
+    UserClientComponent,
+    UserRestaurantComponent,
+    UserAdminComponent,
+    UserLivreurComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [{ provide: LOCALE_ID, useValue: 'fr-FR' }],

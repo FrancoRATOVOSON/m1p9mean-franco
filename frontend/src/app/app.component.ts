@@ -14,9 +14,13 @@ export class AppComponent implements OnInit {
     this.userService.token = window.localStorage.getItem('token')
     if (this.userService.token) {
       this.userService.LoginState = true
-      this.userService.user = new User()
-      this.userService.user.id = window.localStorage.getItem('id')
-      this.userService.user.nom = window.localStorage.getItem('nom')
+      this.userService.user = new User({
+        id: window.localStorage.getItem('id'),
+        nom: window.localStorage.getItem('nom'),
+        prenom: window.localStorage.getItem('prenom'),
+        photoUrl: window.localStorage.getItem('photoUrl'),
+        adresse: window.localStorage.getItem('adresse'),
+      })
       this.userService.userType = window.localStorage.getItem('userType')
     }
   }

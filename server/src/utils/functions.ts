@@ -27,9 +27,11 @@ export function returnUser(userType: string, user: any) {
     case 'CLIENT':
       userToReturn.nom = user.nom
       userToReturn.prenom = user.prenom
+      userToReturn.photoUrl = user.photoUrl
       break
     case 'RESTAURANT':
       userToReturn.nom = user.nom
+      userToReturn.photoUrl = user.photoUrl
       break
     default:
       throw new UserTypeError(userType)

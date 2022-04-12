@@ -27,14 +27,22 @@ export default class UserService {
 
   private loginAction(data: { token: string; user: User }, userType: string) {
     this.token = data.token
-    this.user = new User(data.user.id, data.user.nom)
+    this.user = new User({ ...data.user })
     this.userType = userType
     window.localStorage.setItem('token', this.token)
     window.localStorage.setItem('id', this.user.id || data.user.id || '')
     window.localStorage.setItem('nom', this.user.nom || data.user.nom || '')
     window.localStorage.setItem(
+      'adresse',
+      this.user.adresse || data.user.adresse || ''
+    )
+    window.localStorage.setItem(
       'prenom',
       this.user.prenom || data.user.prenom || ''
+    )
+    window.localStorage.setItem(
+      'photoUrl',
+      this.user.photoUrl || data.user.photoUrl || ''
     )
     window.localStorage.setItem('userType', this.userType)
     this.loginState = true

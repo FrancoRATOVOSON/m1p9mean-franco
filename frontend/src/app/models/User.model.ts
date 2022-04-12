@@ -1,9 +1,25 @@
+type UserInputType = {
+  id?: string | null
+  nom?: string | null
+  prenom?: string | null
+  adresse?: string | null
+  photoUrl?: string | null
+}
+
 export default class User {
-  constructor(
-    public id?: string | null,
-    public nom?: string | null,
-    public prenom?: string,
-    public adresse?: string,
-    public photoUrl?: string
-  ) {}
+  id?: string | null
+  nom?: string | null
+  prenom?: string | null
+  adresse?: string | null
+  photoUrl?: string | null
+
+  constructor(userInput?: UserInputType) {
+    if (userInput) {
+      this.id = userInput.id
+      this.nom = userInput.nom
+      this.prenom = userInput.prenom
+      this.photoUrl = userInput.photoUrl
+      this.adresse = userInput.adresse
+    }
+  }
 }

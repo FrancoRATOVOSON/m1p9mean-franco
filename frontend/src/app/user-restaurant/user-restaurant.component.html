@@ -1,0 +1,16 @@
+<div class="grow h-full w-full pb-6">
+  <img class="object-cover h-128 w-full" [src]="photoUrl" [alt]="nom">
+  <div class="px-16 pt-6">
+    <div>
+      <h1 class="text-5xl font-semibold">{{nom}}</h1>
+      <h2>{{adresse}}</h2>
+    </div>
+    <div class="mt-6">
+      <p class="mb-4 text-xl">
+        Nous vous souhaitons la bienvenue chez nous.<br>
+        À votre guise, nos menus sont là pour vous plaire.
+      </p>
+      <app-menu-list></app-menu-list>
+    </div>
+  </div>
+</div>

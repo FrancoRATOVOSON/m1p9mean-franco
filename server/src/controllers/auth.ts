@@ -1,7 +1,7 @@
 import { Response, Request, RequestHandler } from 'express'
 import {
   createUser,
-  returnUser,
+  // returnUser,
   isUserExists,
   findUserByMail,
 } from '../utils/functions'
@@ -27,10 +27,11 @@ export const signup: RequestHandler = async (req: Request, res: Response) => {
       ...req.body,
       photoUrl,
     })
-    const returnedUser = returnUser(userType, createdUser)
+    // const returnedUser = returnUser(userType, createdUser)
     res.status(200).send({
-      user: returnedUser,
-      token: tokenSign({ userID: returnedUser.id, userType }, '24h'),
+      // user: returnedUser,
+      user: createdUser,
+      token: tokenSign({ userID: createdUser.id, userType }, '24h'),
     })
   } catch (error) {
     // TODO: don't forget to remove 'console.error' before send in prod
@@ -52,10 +53,11 @@ export const login: RequestHandler = async (req: Request, res: Response) => {
     if (
       await comparePassword(motDePasse as string, userFound.compte.motDePasse)
     ) {
-      const returnedUser = returnUser(userType, userFound)
+      // const returnedUser = returnUser(userType, userFound)
       res.status(200).send({
-        user: returnedUser,
-        token: tokenSign({ userID: returnedUser.id, userType }, '24h'),
+        // user: returnedUser,
+        user: userFound,
+        token: tokenSign({ userID: userFound.id, userType }, '24h'),
       })
     } else res.status(400).send('Wrong Password')
   } catch (error) {
