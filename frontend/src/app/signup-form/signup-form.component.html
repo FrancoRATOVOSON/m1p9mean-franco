@@ -10,7 +10,7 @@
       </select>
     </div>
     <div class="formAction">
-      <button class="cta w-52 mb-3" (click)="onNextStep(usertype !== 'admin' ? 'userInfos' : 'userLogin')">
+      <button class="cta w-52 mb-3" type="button" (click)="onNextStep(usertype !== 'admin' ? 'userInfos' : 'userLogin')">
         Suivant
       </button>
     </div>
@@ -21,34 +21,34 @@
   <div [ngClass]="{ 'hidden': step !== 'userInfos'}">
     <h1 class="formHeader">Entrez vos informations</h1>
     <div class="formElement">
-      <label class="formLabel" for="email">
+      <label class="formLabel" for="nom">
         {{usertype === 'restaurant' ? 'Le nom de votre restaurant' : 'Votre nom'}}
       </label>
-      <input class="formField" type="email" id="email" name="email" [(ngModel)]="email">
+      <input class="formField" type="text" id="nom" name="nom" [(ngModel)]="nom">
     </div>
     <div class="formElement" [ngClass]="{'hidden': usertype === 'restaurant'}">
-      <label class="formLabel" for="email">
+      <label class="formLabel" for="prenom">
         Votre prénom
       </label>
-      <input class="formField" type="email" id="email" name="email" [(ngModel)]="email">
+      <input class="formField" type="text" id="prenom" name="prenom" [(ngModel)]="prenom">
     </div>
     <div class="formElement" [ngClass]="{'hidden': usertype === 'livreur'}" >
-      <label class="formLabel" for="email">
+      <label class="formLabel" for="adresse">
         Votre adresse
       </label>
-      <input class="formField" type="email" id="email" name="email" [(ngModel)]="email">
+      <input class="formField" type="text" id="adresse" name="adresse" [(ngModel)]="adresse">
     </div>
     <div class="formElement">
-      <label class="formLabel" for="email">
+      <label class="formLabel" for="photo">
         {{usertype === 'restaurant' ? 'Une belle photo pour votre couverture' : 'La photo pour votre profile'}}
       </label>
-      <input class="formField" type="email" id="email" name="email" [(ngModel)]="email">
+      <input class="formField" type="file" id="photo" name="photo" [(ngModel)]="photo">
     </div>
     <div class="formAction">
-      <button class="cta w-52 mb-3" (click)="onNextStep('userLogin')">
+      <button class="cta w-52 mb-3" type="button" (click)="onNextStep('userLogin')">
         Suivant
       </button>
-      <button class="secondAction w-52" (click)="onNextStep('userType')">
+      <button class="secondAction w-52" type="button" (click)="onNextStep('userType')">
         Précedent
       </button>
     </div>
@@ -79,10 +79,10 @@
         >
     </div>
     <div class="formAction">
-      <button class="cta w-52 mb-3">
+      <button class="cta w-52 mb-3" type="submit">
         Valider
       </button>
-      <button class="secondAction w-52" (click)="onNextStep(usertype !== 'admin' ? 'userInfos' : 'userType')">
+      <button class="secondAction w-52" type="button" (click)="onNextStep(usertype !== 'admin' ? 'userInfos' : 'userType')">
         Précedent
       </button>
     </div>

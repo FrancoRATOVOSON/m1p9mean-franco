@@ -9,6 +9,9 @@ import { NgForm } from '@angular/forms'
 export class SignupFormComponent implements OnInit {
   usertype!: string
   nom!: string
+  prenom!: string
+  adresse!: string
+  photo!: File
   email!: string
   motDePasse!: string
   confirmMotDePasse!: string
@@ -30,13 +33,13 @@ export class SignupFormComponent implements OnInit {
   }
 
   onSubmitForm(ngForm: NgForm) {
-    console.log(ngForm)
+    console.log(ngForm.value)
   }
 
   onNextStep(nextStep: string) {
     this.step = 'loading'
     setTimeout(() => {
       this.step = nextStep
-    }, 500)
+    }, 150)
   }
 }
