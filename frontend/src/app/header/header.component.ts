@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
+import UserService from '../services/user.service'
 
 @Component({
   selector: 'app-header',
@@ -8,13 +9,15 @@ import { Router } from '@angular/router'
 })
 export class HeaderComponent implements OnInit {
   asideOpen!: boolean
-  isLoggedIn!: boolean
 
-  constructor(private router: Router) {}
+  constructor(private userService: UserService, private router: Router) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.asideOpen = false
-    this.isLoggedIn = false
+  }
+
+  getLoginState() {
+    return this.userService.LoginState
   }
 
   onAsideToggle(open: boolean) {
@@ -28,4 +31,6 @@ export class HeaderComponent implements OnInit {
   onLoginClick() {
     this.router.navigateByUrl('login')
   }
+
+  toggleloginstate() {}
 }

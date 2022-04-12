@@ -1,5 +1,6 @@
 import { LOCALE_ID, NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
+import { HttpClientModule } from '@angular/common/http'
 import { AppComponent } from './app.component'
 import { MenuComponent } from './menu/menu.component'
 import { registerLocaleData } from '@angular/common'
@@ -17,9 +18,9 @@ import { LoginFormComponent } from './login-form/login-form.component'
 import { SignupFormComponent } from './signup-form/signup-form.component'
 import { HomePageComponent } from './home-page/home-page.component'
 import { LoginPageComponent } from './login-page/login-page.component'
-import { SignupPageComponent } from './signup-page/signup-page.component';
-import { EkalySvgComponent } from './ekaly-svg/ekaly-svg.component';
-import { MenuPageComponent } from './menu-page/menu-page.component';
+import { SignupPageComponent } from './signup-page/signup-page.component'
+import { EkalySvgComponent } from './ekaly-svg/ekaly-svg.component'
+import { MenuPageComponent } from './menu-page/menu-page.component'
 import { RestaurantsPageComponent } from './restaurants-page/restaurants-page.component'
 
 @NgModule({
@@ -42,7 +43,7 @@ import { RestaurantsPageComponent } from './restaurants-page/restaurants-page.co
     MenuPageComponent,
     RestaurantsPageComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [{ provide: LOCALE_ID, useValue: 'fr-FR' }],
   bootstrap: [AppComponent],
 })

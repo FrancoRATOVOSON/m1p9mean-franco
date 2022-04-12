@@ -51,9 +51,7 @@ export async function createRestaurant(restaurant: IRestaurant) {
       photoUrl: await uploadImage(
         photoUrl,
         'restaurant',
-        `${nom.toLocaleLowerCase().split(' ').join('_')}}_${
-          email.split('@')[0]
-        }`
+        `${nom.toLocaleLowerCase().split(' ').join('_')}_${email.split('@')[0]}`
       ),
       compte: {
         email,

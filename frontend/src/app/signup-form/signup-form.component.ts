@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { NgForm } from '@angular/forms'
+import UserService from '../services/user.service'
 
 @Component({
   selector: 'app-signup-form',
@@ -20,7 +20,7 @@ export class SignupFormComponent implements OnInit {
   userTypes!: string[]
   step!: string
 
-  constructor() {}
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
     this.userTypes = ['client', 'restaurant', 'livreur', 'admin']
@@ -32,8 +32,23 @@ export class SignupFormComponent implements OnInit {
     this.passwordError = this.motDePasse === this.confirmMotDePasse
   }
 
-  onSubmitForm(ngForm: NgForm) {
-    console.log(ngForm.value)
+  onSubmitForm() {
+    const formData = new FormData()
+
+    if (this.usertype !== 'admin') {
+      formData.append('nom', this.nom)
+      if (this.usertype !== 'restaurant') formData.append('prenom', this.prenom)
+      if (this.usertype !== 'livreur') formData.append('adresse', this.adresse)
+      formData.append('photo', this.photo, this.photo.name)
+    }
+    formData.append('email', this.email)
+    formData.append('motDePasse', this.motDePasse)
+
+    this.userService.signup(formData, this.usertype)
+  }
+
+  onFileChanged(event: any) {
+    this.photo = event.target.files[0]
   }
 
   onNextStep(nextStep: string) {

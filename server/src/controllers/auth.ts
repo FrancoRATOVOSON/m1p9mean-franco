@@ -8,6 +8,8 @@ import {
 import { comparePassword, tokenSign } from '../utils/tools'
 
 export const signup: RequestHandler = async (req: Request, res: Response) => {
+  console.log(req)
+
   const { userType } = req.params
   try {
     if (await isUserExists(userType, req.body.email)) {

@@ -1,4 +1,4 @@
-<form class="form flex flex-row justify-between items-center" #loginForm="ngForm" (ngSubmit)="onSubmitForm(loginForm)">
+<form class="form flex flex-row justify-between items-center" enctype="multipart/form-data">
   <div class="max-w-sm" [ngClass]="{ 'hidden': step !== 'userType'}">
     <h1 class="formHeader">Heureux de vous recevoir</h1>
     <div class="flex flex-col justify-start items-center">
@@ -42,7 +42,7 @@
       <label class="formLabel" for="photo">
         {{usertype === 'restaurant' ? 'Une belle photo pour votre couverture' : 'La photo pour votre profile'}}
       </label>
-      <input class="formField" type="file" id="photo" name="photo" [(ngModel)]="photo">
+      <input class="formField" type="file" id="photo" name="photo" [(ngModel)]="photo" (change)="onFileChanged($event)">
     </div>
     <div class="formAction">
       <button class="cta w-52 mb-3" type="button" (click)="onNextStep('userLogin')">
@@ -79,7 +79,7 @@
         >
     </div>
     <div class="formAction">
-      <button class="cta w-52 mb-3" type="submit">
+      <button class="cta w-52 mb-3" type="button" (click)="onSubmitForm()">
         Valider
       </button>
       <button class="secondAction w-52" type="button" (click)="onNextStep(usertype !== 'admin' ? 'userInfos' : 'userType')">
