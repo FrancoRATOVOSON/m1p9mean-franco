@@ -10,8 +10,4 @@ export class HomePageComponent implements OnInit {
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {}
-
-  toggleLogin() {
-    this.userService.toggleLoginState()
-  }
 }

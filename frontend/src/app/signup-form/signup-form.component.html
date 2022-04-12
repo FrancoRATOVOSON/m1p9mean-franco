@@ -42,7 +42,7 @@
       <label class="formLabel" for="photo">
         {{usertype === 'restaurant' ? 'Une belle photo pour votre couverture' : 'La photo pour votre profile'}}
       </label>
-      <input class="formField" type="file" id="photo" name="photo" [(ngModel)]="photo" (change)="onFileChanged($event)">
+      <input class="formField" type="file" id="photo" name="photo" (change)="onFileChanged($event)">
     </div>
     <div class="formAction">
       <button class="cta w-52 mb-3" type="button" (click)="onNextStep('userLogin')">
@@ -54,7 +54,7 @@
     </div>
   </div>
 
-  <div [ngClass]="{ 'hidden': step !== 'userLogin'}">
+  <div [ngClass]="{ 'hidden': step !== 'userLogin' && step !== 'wait'}">
     <h1 class="formHeader">Dernière étape</h1>
     <div class="formElement">
       <label class="formLabel" for="email">Adresse mail</label>
@@ -77,9 +77,14 @@
           [(ngModel)]="confirmMotDePasse"
           (ngModelChange)="onPasswordConfirm()"
         >
+        <span class="error" *ngIf="error">{{errorMessage}}</span>
     </div>
     <div class="formAction">
-      <button class="cta w-52 mb-3" type="button" (click)="onSubmitForm()">
+      <button
+      class="validButton w-52 mb-3 flex flex-row items-center justify-evenly"
+      [ngClass]="{ 'py-4': step !== 'wait', 'py-3': step === 'wait'}"
+      type="button" (click)="onSubmitForm()">
+        <div class="smallLoad mr-2" [ngClass]="{ 'hidden': step !== 'wait'}"></div>
         Valider
       </button>
       <button class="secondAction w-52" type="button" (click)="onNextStep(usertype !== 'admin' ? 'userInfos' : 'userType')">

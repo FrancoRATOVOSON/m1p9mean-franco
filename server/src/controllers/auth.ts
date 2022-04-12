@@ -8,21 +8,24 @@ import {
 import { comparePassword, tokenSign } from '../utils/tools'
 
 export const signup: RequestHandler = async (req: Request, res: Response) => {
-  console.log(req)
-
   const { userType } = req.params
   try {
     if (await isUserExists(userType, req.body.email)) {
       res.status(400).send('User already exists')
       return
     }
+
+    const photoUrl =
+      userType === 'admin'
+        ? undefined
+        : {
+            originalname: (req as any).file.originalname,
+            mimetype: (req as any).file.mimetype,
+            buffer: (req as any).file.buffer,
+          }
     const createdUser = await createUser(userType, {
       ...req.body,
-      photoUrl: {
-        originalname: (req as any).file.originalname,
-        mimetype: (req as any).file.mimetype,
-        buffer: (req as any).file.buffer,
-      },
+      photoUrl,
     })
     const returnedUser = returnUser(userType, createdUser)
     res.status(200).send({

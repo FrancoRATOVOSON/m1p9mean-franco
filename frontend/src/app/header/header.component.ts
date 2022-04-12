@@ -31,6 +31,4 @@ export class HeaderComponent implements OnInit {
   onLoginClick() {
     this.router.navigateByUrl('login')
   }
-
-  toggleloginstate() {}
 }

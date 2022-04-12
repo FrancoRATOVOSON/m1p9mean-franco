@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
 import UserService from '../services/user.service'
 
 @Component({
@@ -19,32 +20,20 @@ export class SignupFormComponent implements OnInit {
   selectedUserType!: string
   userTypes!: string[]
   step!: string
+  errorMessage: string = 'Mot de passe invalide'
+  error!: boolean
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
     this.userTypes = ['client', 'restaurant', 'livreur', 'admin']
     this.usertype = this.userTypes[0]
     this.step = 'userType'
+    this.error = false
   }
 
   onPasswordConfirm() {
     this.passwordError = this.motDePasse === this.confirmMotDePasse
-  }
-
-  onSubmitForm() {
-    const formData = new FormData()
-
-    if (this.usertype !== 'admin') {
-      formData.append('nom', this.nom)
-      if (this.usertype !== 'restaurant') formData.append('prenom', this.prenom)
-      if (this.usertype !== 'livreur') formData.append('adresse', this.adresse)
-      formData.append('photo', this.photo, this.photo.name)
-    }
-    formData.append('email', this.email)
-    formData.append('motDePasse', this.motDePasse)
-
-    this.userService.signup(formData, this.usertype)
   }
 
   onFileChanged(event: any) {
@@ -56,5 +45,35 @@ export class SignupFormComponent implements OnInit {
     setTimeout(() => {
       this.step = nextStep
     }, 150)
+  }
+
+  onSubmitForm() {
+    if (this.motDePasse !== this.confirmMotDePasse) {
+      this.error = true
+      return
+    } else this.error = false
+
+    this.step = 'wait'
+    const formData = new FormData()
+
+    if (this.usertype !== 'admin') {
+      formData.append('nom', this.nom)
+      if (this.usertype !== 'restaurant') formData.append('prenom', this.prenom)
+      if (this.usertype !== 'livreur') formData.append('adresse', this.adresse)
+      formData.append('photo', this.photo, this.photo.name)
+    }
+    formData.append('email', this.email)
+    formData.append('motDePasse', this.motDePasse)
+
+    this.userService.signup(
+      formData,
+      this.usertype,
+      () => this.router.navigateByUrl(''),
+      () => {
+        this.errorMessage = `Oups! Quelque chose s'est mal passé !`
+        this.error = true
+        this.step = 'userLogin'
+      }
+    )
   }
 }
