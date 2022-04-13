@@ -1,8 +1,8 @@
-<form class="form flex flex-row justify-between items-center" enctype="multipart/form-data">
+<form class="flex flex-row items-center justify-between form" enctype="multipart/form-data">
   <div class="max-w-sm" [ngClass]="{ 'hidden': step !== 'userType'}">
     <h1 class="formHeader">Heureux de vous recevoir</h1>
-    <div class="flex flex-col justify-start items-center">
-      <label class="formLabel tracking-wide" for="userType">
+    <div class="flex flex-col items-center justify-start">
+      <label class="tracking-wide formLabel" for="userType">
         Premièrement nous voulons savoir le type de compte que vous souhaitez
       </label>
       <select class="selectField" name="userType" id="userType" [(ngModel)]="usertype">
@@ -10,7 +10,7 @@
       </select>
     </div>
     <div class="formAction">
-      <button class="cta w-52 mb-3" type="button" (click)="onNextStep(usertype !== 'admin' ? 'userInfos' : 'userLogin')">
+      <button class="mb-3 cta w-52" type="button" (click)="onNextStep(usertype !== 'admin' ? 'userInfos' : 'userLogin')">
         Suivant
       </button>
     </div>
@@ -38,6 +38,19 @@
       </label>
       <input class="formField" type="text" id="adresse" name="adresse" [(ngModel)]="adresse">
     </div>
+    <div class="formElement" [ngClass]="{'hidden': usertype !== 'restaurant'}" >
+      <label class="formLabel" for="description">
+        Une petite description ?
+      </label>
+      <textarea
+        class="formField"
+        id="description"
+        name="description"
+        [(ngModel)]="description"
+        cols="30"
+        rows="10">
+      </textarea>
+    </div>
     <div class="formElement">
       <label class="formLabel" for="photo">
         {{usertype === 'restaurant' ? 'Une belle photo pour votre couverture' : 'La photo pour votre profile'}}
@@ -45,7 +58,7 @@
       <input class="formField" type="file" id="photo" name="photo" (change)="onFileChanged($event)">
     </div>
     <div class="formAction">
-      <button class="cta w-52 mb-3" type="button" (click)="onNextStep('userLogin')">
+      <button class="mb-3 cta w-52" type="button" (click)="onNextStep('userLogin')">
         Suivant
       </button>
       <button class="secondAction w-52" type="button" (click)="onNextStep('userType')">
@@ -81,10 +94,10 @@
     </div>
     <div class="formAction">
       <button
-      class="validButton w-52 mb-3 flex flex-row items-center justify-evenly"
+      class="flex flex-row items-center mb-3 validButton w-52 justify-evenly"
       [ngClass]="{ 'py-4': step !== 'wait', 'py-3': step === 'wait'}"
       type="button" (click)="onSubmitForm()">
-        <div class="smallLoad mr-2" [ngClass]="{ 'hidden': step !== 'wait'}"></div>
+        <div class="mr-2 smallLoad" [ngClass]="{ 'hidden': step !== 'wait'}"></div>
         Valider
       </button>
       <button class="secondAction w-52" type="button" (click)="onNextStep(usertype !== 'admin' ? 'userInfos' : 'userType')">

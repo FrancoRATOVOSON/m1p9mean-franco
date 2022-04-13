@@ -31,6 +31,7 @@ export function returnUser(userType: string, user: any) {
       break
     case 'RESTAURANT':
       userToReturn.nom = user.nom
+      userToReturn.description = user.description
       userToReturn.photoUrl = user.photoUrl
       break
     default:

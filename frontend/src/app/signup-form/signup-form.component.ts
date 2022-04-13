@@ -11,6 +11,7 @@ export class SignupFormComponent implements OnInit {
   usertype!: string
   nom!: string
   prenom!: string
+  description!: string
   adresse!: string
   photo!: File
   email!: string
@@ -60,6 +61,8 @@ export class SignupFormComponent implements OnInit {
       formData.append('nom', this.nom)
       if (this.usertype !== 'restaurant') formData.append('prenom', this.prenom)
       if (this.usertype !== 'livreur') formData.append('adresse', this.adresse)
+      if (this.usertype === 'restaurant')
+        formData.append('description', this.description)
       formData.append('photo', this.photo, this.photo.name)
     }
     formData.append('email', this.email)

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
 import UserService from '../services/user.service'
 
 @Component({
@@ -11,13 +12,16 @@ export class UserRestaurantComponent implements OnInit {
   adresse!: string | null | undefined
   photoUrl!: string | null | undefined
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
-    console.log(this.userService.user)
-
     this.nom = this.userService.user.nom
     this.adresse = this.userService.user.adresse
     this.photoUrl = this.userService.user.photoUrl
+  }
+
+  onLogOut() {
+    this.userService.logout()
+    this.router.navigateByUrl('')
   }
 }

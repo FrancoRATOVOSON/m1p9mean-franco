@@ -98,6 +98,7 @@ type Query {
 
 type Restaurant {
   adresse: String
+  description: String
   id: String!
   nom: String!
   photoUrl: String

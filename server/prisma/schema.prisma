@@ -43,6 +43,7 @@ model Restaurant {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   nom String
   adresse String
+  description String
   photoUrl String
   compte Compte
   menus Menu[]

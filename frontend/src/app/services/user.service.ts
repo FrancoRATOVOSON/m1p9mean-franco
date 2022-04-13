@@ -90,4 +90,16 @@ export default class UserService {
         error: () => onError && onError(),
       })
   }
+
+  clear() {
+    this.user = new User()
+    this.LoginState = false
+    this.userType = null
+    this.token = null
+  }
+
+  logout() {
+    window.localStorage.clear()
+    this.clear()
+  }
 }

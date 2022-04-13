@@ -27,6 +27,7 @@ import { UserClientComponent } from './user-client/user-client.component'
 import { UserRestaurantComponent } from './user-restaurant/user-restaurant.component'
 import { UserAdminComponent } from './user-admin/user-admin.component'
 import { UserLivreurComponent } from './user-livreur/user-livreur.component'
+import { GraphQLModule } from './graphql.module'
 
 @NgModule({
   declarations: [
@@ -53,7 +54,13 @@ import { UserLivreurComponent } from './user-livreur/user-livreur.component'
     UserAdminComponent,
     UserLivreurComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    GraphQLModule,
+  ],
   providers: [{ provide: LOCALE_ID, useValue: 'fr-FR' }],
   bootstrap: [AppComponent],
 })

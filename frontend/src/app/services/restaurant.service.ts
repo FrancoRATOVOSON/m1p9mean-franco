@@ -1,28 +1,52 @@
 import { Injectable } from '@angular/core'
 import Restaurant from '../models/Restaurant.model'
+import { Apollo, gql } from 'apollo-angular'
 
 @Injectable({ providedIn: 'root' })
 export default class RestaurantService {
-  restaurants = [
-    new Restaurant(
-      '624b38ac2bd90a0902e49875',
-      'Morris Park Bake Shop',
-      '1007 Morris Park Ave, Bronx',
-      `Spécialisé dans les fast food, nous sommes garant d'un pure plaisir avec nos tacus, hamburger, pizza et autres délices.`
-    ),
-    new Restaurant(
-      '624c779c96e10d0d93050a29',
-      'Palm Restaurant',
-      '837 2 Avenue, Manhattan',
-      `Goûtez au meilleur de la cuisine chinoise. Depuis 15ans, nous régalons nos clients avec les meilleures recettes asiatiques.`
-    ),
-  ]
+  #_restaurants: Restaurant[]
 
-  getRestaurants() {
-    return this.restaurants
+  constructor(private apollo: Apollo) {
+    this.#_restaurants = []
+  }
+
+  get Restaurants() {
+    return this.#_restaurants
+  }
+
+  set Restaurants(value: Restaurant[]) {
+    this.#_restaurants = value
+  }
+
+  getRestaurants(
+    onSuccess?: (_loadingstate: boolean) => void,
+    onError?: () => void
+  ) {
+    this.apollo
+      .watchQuery<Restaurant[]>({
+        query: gql`
+          {
+            restaurants {
+              id
+              nom
+              description
+              adresse
+              photoUrl
+            }
+          }
+        `,
+      })
+      .valueChanges.subscribe(result => {
+        if (result.error) {
+          onError && onError()
+          return
+        }
+        this.Restaurants = result.data
+        onSuccess && onSuccess(result.loading)
+      })
   }
 
   getRestaurantById(id: string) {
-    return this.restaurants.find(restaurant => restaurant.id === id)
+    return this.#_restaurants.find(restaurant => restaurant.id === id)
   }
 }

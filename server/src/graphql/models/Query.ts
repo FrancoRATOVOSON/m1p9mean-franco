@@ -18,7 +18,13 @@ const Query = extendType({
       type: 'Restaurant',
       resolve: (_: any, _args: any, ctx: IGraphqlContext) =>
         ctx.prisma.restaurant.findMany({
-          select: { id: true, nom: true, adresse: true, photoUrl: true },
+          select: {
+            id: true,
+            nom: true,
+            adresse: true,
+            description: true,
+            photoUrl: true,
+          },
         }),
     })
 

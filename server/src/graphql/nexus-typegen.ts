@@ -107,6 +107,7 @@ export interface NexusGenObjects {
   Query: {};
   Restaurant: { // root type
     adresse?: string | null; // String
+    description?: string | null; // String
     id: string; // String!
     nom: string; // String!
     photoUrl?: string | null; // String
@@ -189,6 +190,7 @@ export interface NexusGenFieldTypes {
   }
   Restaurant: { // field return type
     adresse: string | null; // String
+    description: string | null; // String
     id: string; // String!
     nom: string; // String!
     photoUrl: string | null; // String
@@ -261,6 +263,7 @@ export interface NexusGenFieldTypeNames {
   }
   Restaurant: { // field return type name
     adresse: 'String'
+    description: 'String'
     id: 'String'
     nom: 'String'
     photoUrl: 'String'
