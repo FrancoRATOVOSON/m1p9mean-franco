@@ -13,6 +13,11 @@ import RestaurantService from '../services/restaurant.service'
 export class RestaurantPageComponent implements OnInit {
   restaurant!: Restaurant
   menus!: Menu[]
+  loading!: boolean
+  error!: {
+    isError: boolean
+    message?: string
+  }
 
   constructor(
     private restaurantService: RestaurantService,
@@ -21,12 +26,25 @@ export class RestaurantPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.loading = true
+    this.error = { isError: false }
     const restaurantId = this.route.snapshot.params['id']
-    const foundRestaurant =
-      this.restaurantService.getRestaurantById(restaurantId)
-    if (foundRestaurant) {
-      this.restaurant = foundRestaurant
-      this.menus = this.menuService.getMenusByrestaurant(this.restaurant.id)
-    } else throw new Error('Restaurant inéxistant')
+    this.getRestaurant(restaurantId)
+  }
+
+  getRestaurant(restaurantId: string) {
+    this.restaurantService.getRestaurantById(
+      restaurantId,
+      (loading: boolean, restaurant: Restaurant) => {
+        this.restaurant = restaurant
+        this.menus = this.menuService.getMenusByrestaurant(this.restaurant.id)
+        this.loading = loading
+      },
+      () => {
+        this.loading = false
+        this.error = { isError: true, message: 'Restaurant inéxistant' }
+        throw new Error('Restaurant inéxistant')
+      }
+    )
   }
 }

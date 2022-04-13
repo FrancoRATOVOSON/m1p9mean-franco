@@ -23,7 +23,7 @@ export default class RestaurantService {
     onError?: () => void
   ) {
     this.apollo
-      .watchQuery<Restaurant[]>({
+      .watchQuery<{ restaurants: Restaurant[] }>({
         query: gql`
           {
             restaurants {
@@ -41,12 +41,46 @@ export default class RestaurantService {
           onError && onError()
           return
         }
-        this.Restaurants = result.data
+        this.#_restaurants = result.data.restaurants
         onSuccess && onSuccess(result.loading)
       })
   }
 
-  getRestaurantById(id: string) {
-    return this.#_restaurants.find(restaurant => restaurant.id === id)
+  getRestaurantById(
+    id: string,
+    onSuccess: (_loadingstate: boolean, _restaurant: Restaurant) => void,
+    onError?: () => void
+  ) {
+    const foundRestaurant: Restaurant | undefined = this.Restaurants.find(
+      restaurant => restaurant.id === id
+    )
+
+    if (foundRestaurant) {
+      onSuccess(false, foundRestaurant)
+    } else {
+      this.apollo
+        .watchQuery<{ restaurant: Restaurant | null }>({
+          query: gql`
+          {
+            restaurant(restaurantId: "${id}") {
+              id
+              nom
+              description
+              adresse
+              photoUrl
+            }
+          }
+        `,
+        })
+        .valueChanges.subscribe(result => {
+          if (result.error || result.data.restaurant === null) {
+            onError && onError()
+            return
+          } else {
+            this.Restaurants.push(result.data.restaurant)
+            onSuccess(result.loading, result.data.restaurant)
+          }
+        })
+    }
   }
 }

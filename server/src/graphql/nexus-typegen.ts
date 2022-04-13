@@ -186,6 +186,7 @@ export interface NexusGenFieldTypes {
     myCommands: Array<NexusGenRootTypes['Commande'] | null> | null; // [Commande]
     myMenus: Array<NexusGenRootTypes['Menu'] | null> | null; // [Menu]
     receivedCommands: Array<NexusGenRootTypes['Commande'] | null> | null; // [Commande]
+    restaurant: NexusGenRootTypes['Restaurant'] | null; // Restaurant
     restaurants: Array<NexusGenRootTypes['Restaurant'] | null> | null; // [Restaurant]
   }
   Restaurant: { // field return type
@@ -259,6 +260,7 @@ export interface NexusGenFieldTypeNames {
     myCommands: 'Commande'
     myMenus: 'Menu'
     receivedCommands: 'Commande'
+    restaurant: 'Restaurant'
     restaurants: 'Restaurant'
   }
   Restaurant: { // field return type name
@@ -302,6 +304,9 @@ export interface NexusGenArgTypes {
   }
   Query: {
     menusByRestaurant: { // args
+      restaurantId: string; // String!
+    }
+    restaurant: { // args
       restaurantId: string; // String!
     }
   }

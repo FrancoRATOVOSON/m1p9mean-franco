@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 
 @Component({
   selector: 'app-restaurants-page',
   templateUrl: './restaurants-page.component.html',
-  styleUrls: ['./restaurants-page.component.css']
+  styleUrls: ['./restaurants-page.component.css'],
 })
 export class RestaurantsPageComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

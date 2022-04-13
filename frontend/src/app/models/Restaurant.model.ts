@@ -8,6 +8,7 @@ export default class Restaurant {
     public id: string,
     public nom: string,
     public adresse: string,
+    public photoUrl: string,
     public description: string,
     menus?: {
       id: string

@@ -1,12 +1,12 @@
-<div class="flex-1 grow w-full h-full">
+<div class="flex-1 w-full h-full grow">
   <app-user-admin *ngIf="userType === 'admin'"></app-user-admin>
   <app-user-client *ngIf="userType === 'client'"></app-user-client>
   <app-user-livreur *ngIf="userType === 'livreur'"></app-user-livreur>
   <app-user-restaurant *ngIf="userType === 'restaurant'"></app-user-restaurant>
-  <div *ngIf="userType === 'error'" class="grow w-full h-full flex justify-center items-center">
+  <div *ngIf="userType === 'error'" class="flex items-center justify-center w-full h-full grow">
     <div>
       <h1 class="text-6xl font-semibold text-center">Erreur 404</h1>
-      <p class="mt-6">
+      <p class="mt-6 text-center">
         Nous n'avons pas pu trouver les informations que vous recherchez
       </p>
     </div>

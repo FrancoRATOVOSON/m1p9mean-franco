@@ -9,12 +9,9 @@ import Restaurant from '../models/Restaurant.model'
 })
 export class RestaurantComponent implements OnInit {
   @Input() restaurant!: Restaurant
+  loading!: boolean
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {}
-
-  onVisit() {
-    this.router.navigateByUrl(`/restaurants/${this.restaurant.id}`)
-  }
 }

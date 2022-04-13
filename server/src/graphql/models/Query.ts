@@ -28,6 +28,24 @@ const Query = extendType({
         }),
     })
 
+    t.field('restaurant', {
+      type: 'Restaurant',
+      args: {
+        restaurantId: nonNull(stringArg()),
+      },
+      resolve: (_: any, args, ctx: IGraphqlContext) =>
+        ctx.prisma.restaurant.findUnique({
+          where: { id: args.restaurantId },
+          select: {
+            id: true,
+            nom: true,
+            adresse: true,
+            description: true,
+            photoUrl: true,
+          },
+        }),
+    })
+
     t.list.field('menus', {
       type: 'MenuReturnedType',
       resolve(_: any, _args: any, ctx: IGraphqlContext) {

@@ -93,6 +93,7 @@ type Query {
   myCommands: [Commande]
   myMenus: [Menu]
   receivedCommands: [Commande]
+  restaurant(restaurantId: String!): Restaurant
   restaurants: [Restaurant]
 }
 

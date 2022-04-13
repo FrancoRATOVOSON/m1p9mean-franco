@@ -19,7 +19,6 @@ import { SignupFormComponent } from './signup-form/signup-form.component'
 import { HomePageComponent } from './home-page/home-page.component'
 import { LoginPageComponent } from './login-page/login-page.component'
 import { SignupPageComponent } from './signup-page/signup-page.component'
-import { EkalySvgComponent } from './ekaly-svg/ekaly-svg.component'
 import { MenuPageComponent } from './menu-page/menu-page.component'
 import { RestaurantsPageComponent } from './restaurants-page/restaurants-page.component'
 import { UserPageComponent } from './user-page/user-page.component'
@@ -45,7 +44,6 @@ import { GraphQLModule } from './graphql.module'
     HomePageComponent,
     LoginPageComponent,
     SignupPageComponent,
-    EkalySvgComponent,
     MenuPageComponent,
     RestaurantsPageComponent,
     UserPageComponent,

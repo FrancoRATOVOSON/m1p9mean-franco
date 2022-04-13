@@ -1,12 +1,12 @@
 <div class="card card__layout max-w-2xs">
   <a [routerLink]="'/restaurants/' + restaurant.id">
-  <img class="h-48 card__image w-72" src="https://images.unsplash.com/photo-1552566626-52f8b828add9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="restaurant">
+  <img class="h-48 card__image w-72" [src]="restaurant.photoUrl" [alt]="restaurant.nom">
   <div class="card__details">
     <div>
       <h2 class="card__title">{{restaurant.nom}}</h2>
       <h4>À {{restaurant.adresse}}</h4>
     </div>
-    <button class="cta" type="button" (click)="onVisit()">Visiter</button>
+    <button class="cta" type="button">Visiter</button>
   </div>
   </a>
 </div>
