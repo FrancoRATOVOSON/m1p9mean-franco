@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import Menu from '../models/Menu.model'
 import Restaurant from '../models/Restaurant.model'
-import MenusService from '../services/menus.service'
 import RestaurantService from '../services/restaurant.service'
 
 @Component({
@@ -12,7 +10,6 @@ import RestaurantService from '../services/restaurant.service'
 })
 export class RestaurantPageComponent implements OnInit {
   restaurant!: Restaurant
-  menus!: Menu[]
   loading!: boolean
   error!: {
     isError: boolean
@@ -21,7 +18,6 @@ export class RestaurantPageComponent implements OnInit {
 
   constructor(
     private restaurantService: RestaurantService,
-    private menuService: MenusService,
     private route: ActivatedRoute
   ) {}
 
@@ -37,7 +33,6 @@ export class RestaurantPageComponent implements OnInit {
       restaurantId,
       (loading: boolean, restaurant: Restaurant) => {
         this.restaurant = restaurant
-        this.menus = this.menuService.getMenusByrestaurant(this.restaurant.id)
         this.loading = loading
       },
       () => {

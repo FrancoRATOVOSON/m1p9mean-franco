@@ -10,6 +10,10 @@ import RestaurantService from '../services/restaurant.service'
 export class RestaurantListComponent implements OnInit {
   restaurants!: Restaurant[]
   loading!: boolean
+  error!: {
+    isError: boolean
+    message?: string
+  }
 
   constructor(private restaurantService: RestaurantService) {}
 

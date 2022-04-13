@@ -52,8 +52,8 @@
     @apply flex flex-col justify-start items-stretch;
   }
 
-  .card-list {
-    @apply flex flex-row justify-start items-center m-16;
+  .card__list {
+    @apply flex flex-row justify-start items-center w-full h-full;
   }
 
   .card__image {

@@ -1,28 +1,78 @@
 import Menu from '../models/Menu.model'
 import { Injectable } from '@angular/core'
+import { Apollo, gql } from 'apollo-angular'
 
 @Injectable({ providedIn: 'root' })
 export default class MenusService {
-  menus: Menu[] = [
-    new Menu('625172531bd29d758770c150', 'Poisson frit', 13000, {
-      id: '624b38ac2bd90a0902e49875',
-      nom: 'Morris Park Bake Shop',
-    }),
-    new Menu('62517c266633a1f2434edc1c', 'Tacos Méxicaine', 6000, {
-      id: '624b38ac2bd90a0902e49875',
-      nom: 'Morris Park Bake Shop',
-    }),
-    new Menu('6251e8704443c31d5bb4565e', 'Cordon bleu', 8000, {
-      id: '624c779c96e10d0d93050a29',
-      nom: 'Parlm Restaurant',
-    }),
-  ]
+  #_menus: Menu[]
 
-  getAllMenus() {
-    return this.menus
+  constructor(private apollo: Apollo) {
+    this.#_menus = []
   }
 
-  getMenusByrestaurant(restaurantId: string) {
-    return this.menus.filter(menu => menu.restaurant.id === restaurantId)
+  get Menu() {
+    return this.#_menus
+  }
+
+  set Menu(menu: Menu[]) {
+    this.#_menus = menu
+  }
+
+  getMenus(onSuccess?: (_loadingstate: boolean) => void, onError?: () => void) {
+    this.apollo
+      .watchQuery<{ menus: Menu[] }>({
+        query: gql`
+          {
+            menus {
+              id
+              nom
+              prix
+              restaurant {
+                id
+                nom
+              }
+            }
+          }
+        `,
+      })
+      .valueChanges.subscribe(result => {
+        if (result.error || result.data.menus.length === 0) {
+          onError && onError()
+          return
+        }
+        this.#_menus = result.data.menus
+        onSuccess && onSuccess(result.loading)
+      })
+  }
+
+  getMenusByrestaurant(
+    restaurantId: string,
+    onSuccess?: (_loadingstate: boolean) => void,
+    onError?: () => void
+  ) {
+    this.apollo
+      .watchQuery<{ menusByRestaurant: Menu[] }>({
+        query: gql`
+          {
+            menusByRestaurant(restaurantId: "${restaurantId}") {
+              id
+              nom
+              prix
+              restaurant {
+                id
+                nom
+              }
+            }
+          }
+        `,
+      })
+      .valueChanges.subscribe(result => {
+        if (result.error || result.data.menusByRestaurant.length === 0) {
+          onError && onError()
+          return
+        }
+        this.#_menus = result.data.menusByRestaurant
+        onSuccess && onSuccess(result.loading)
+      })
   }
 }
