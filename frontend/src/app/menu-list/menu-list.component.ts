@@ -41,7 +41,6 @@ export class MenuListComponent implements OnInit {
   private onfetchSuccess = (loadingState: boolean) => {
     this.menus = this.menusService.Menu
     this.loading = loadingState
-    console.log(this.loading)
   }
 
   private onfetchError = () => {

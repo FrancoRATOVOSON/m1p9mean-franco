@@ -18,8 +18,19 @@
   </div>
   <div class="flex flex-col items-stretch justify-start grow">
     <div class="p-4 bg-white">
-      <button class="px-6 cta">Créer un menu</button>
+      <button class="px-6 cta" type="button" (click)="onCreateMenu()">
+        Créer un menu
+      </button>
     </div>
-    <app-menu-list class="grow"></app-menu-list>
+    <div class="grow flex justify-center items-center">
+      <app-create-menu
+        *ngIf="currentTab === 'CreateMenu'"
+        [onValidateAction]="onMenuCreated"
+        [onCancelAction]="onCancelCreateMenu"></app-create-menu>
+      <app-menu-list
+        class="grow"
+        *ngIf="currentTab === 'Menus'"
+        [restaurantId]="id || '_'"></app-menu-list>
+    </div>
   </div>
 </div>

@@ -47,7 +47,7 @@ const Mutation = extendType({
           data: {
             nom,
             prix,
-            visible: visible || true,
+            visible: visible === null || visible === undefined ? true : visible,
             restaurantId,
             photoUrl: uploadedImage.secure_url,
           },

@@ -64,7 +64,7 @@ const Query = extendType({
       resolve(_, args, ctx: IGraphqlContext) {
         const { restaurantId } = args
         return ctx.prisma.menu.findMany({
-          where: { restaurantId },
+          where: { restaurantId, visible: true },
           select: menuRestaurantSelection,
         })
       },

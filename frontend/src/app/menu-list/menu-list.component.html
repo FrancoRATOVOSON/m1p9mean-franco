@@ -3,8 +3,8 @@
     <div class="load" ></div>
     <p>À la recherche des informations</p>
   </div>
-  <div class="w-full h-full grow" *ngIf="!loading && !error.isError">
-    <div class="m-4 card__list" *ngFor="let menu of menus">
+  <div class="w-full h-full grow m-4 card__list" *ngIf="!loading && !error.isError">
+    <div *ngFor="let menu of menus">
       <app-menu [menu]="menu"></app-menu>
     </div>
   </div>

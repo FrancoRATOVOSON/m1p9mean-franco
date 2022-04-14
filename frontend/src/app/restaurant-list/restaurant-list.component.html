@@ -3,7 +3,7 @@
     <div class="load" ></div>
     <p>À la recherche des informations</p>
   </div>
-  <div class="w-full h-full grow" *ngIf="!loading">
+  <div class="w-full h-full grow card__list" *ngIf="!loading">
     <div class="m-4" *ngFor="let restaurant of restaurants">
       <app-restaurant [restaurant]="restaurant"></app-restaurant>
     </div>

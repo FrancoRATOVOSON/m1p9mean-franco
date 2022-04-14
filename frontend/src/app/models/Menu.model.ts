@@ -3,6 +3,7 @@ export default class Menu {
     public id: string,
     public nom: string,
     public prix: number,
+    public photoUrl: string,
     public restaurant: {
       id: string
       nom: string

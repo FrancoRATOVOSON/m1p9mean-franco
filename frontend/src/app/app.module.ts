@@ -1,6 +1,7 @@
 import { LOCALE_ID, NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { HttpClientModule } from '@angular/common/http'
+import { DragDropModule } from '@angular/cdk/drag-drop'
 import { AppComponent } from './app.component'
 import { MenuComponent } from './menu/menu.component'
 import { registerLocaleData } from '@angular/common'
@@ -27,6 +28,7 @@ import { UserRestaurantComponent } from './user-restaurant/user-restaurant.compo
 import { UserAdminComponent } from './user-admin/user-admin.component'
 import { UserLivreurComponent } from './user-livreur/user-livreur.component'
 import { GraphQLModule } from './graphql.module'
+import { CreateMenuComponent } from './create-menu/create-menu.component'
 
 @NgModule({
   declarations: [
@@ -51,6 +53,7 @@ import { GraphQLModule } from './graphql.module'
     UserRestaurantComponent,
     UserAdminComponent,
     UserLivreurComponent,
+    CreateMenuComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,6 +61,7 @@ import { GraphQLModule } from './graphql.module'
     FormsModule,
     HttpClientModule,
     GraphQLModule,
+    DragDropModule,
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'fr-FR' }],
   bootstrap: [AppComponent],

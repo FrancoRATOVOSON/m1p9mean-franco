@@ -71,6 +71,7 @@
   .cta {
     @apply py-4 text-center text-white bg-orange-600 rounded-lg flex justify-center items-center;
     @apply hover:bg-orange-700;
+    @apply active:bg-orange-800;
   }
 
   .cta-white {
