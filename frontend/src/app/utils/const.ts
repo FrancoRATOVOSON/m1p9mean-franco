@@ -56,3 +56,15 @@ export const CREATE_MENU = gql`
     }
   }
 `
+
+export const GET_MY_MENUS = gql`
+  {
+    myMenus {
+      id
+      nom
+      prix
+      visible
+      photoUrl
+    }
+  }
+`

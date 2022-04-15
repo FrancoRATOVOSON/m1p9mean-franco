@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
-import MenusService from '../services/menus.service'
+import UserRestaurantService from '../services/user-restaurant.service'
 
 @Component({
   selector: 'app-create-menu',
@@ -17,7 +17,7 @@ export class CreateMenuComponent implements OnInit {
   errorMessage: string = 'Mot de passe invalide'
   error!: boolean
 
-  constructor(private menuService: MenusService) {}
+  constructor(private userRestaurantService: UserRestaurantService) {}
 
   ngOnInit(): void {
     this.step = ''
@@ -35,7 +35,7 @@ export class CreateMenuComponent implements OnInit {
   onValid() {
     console.log(this.visible)
     this.step = 'wait'
-    this.menuService.createMenu(
+    this.userRestaurantService.createMenu(
       {
         nom: this.nom,
         prix: this.prix,

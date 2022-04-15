@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
+import UserRestaurantService, {
+  RestaurantMenuType,
+} from '../services/user-restaurant.service'
 import UserService from '../services/user.service'
 
 @Component({
@@ -12,9 +15,15 @@ export class UserRestaurantComponent implements OnInit {
   nom!: string | null | undefined
   adresse!: string | null | undefined
   photoUrl!: string | null | undefined
-  currentTab!: 'CreateMenu' | 'Menus' | 'Commandes'
+  currentTab!: 'CreateMenu' | 'Menus' | 'Commandes' | 'Loading' | 'Error'
+  errorMessage!: string
+  menus!: RestaurantMenuType[]
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private userRestaurantService: UserRestaurantService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.id = this.userService.user.id
@@ -22,11 +31,25 @@ export class UserRestaurantComponent implements OnInit {
     this.adresse = this.userService.user.adresse
     this.photoUrl = this.userService.user.photoUrl
     this.currentTab = 'Menus'
+    this.errorMessage = ''
+    this.menus = this.userRestaurantService.Menus
+
+    this.fetchMenus()
   }
 
   onLogOut() {
     this.userService.logout()
+    this.userRestaurantService.clear()
     this.router.navigateByUrl('')
+    this.menus = []
+  }
+
+  fetchMenus = () => {
+    this.currentTab = 'Loading'
+    this.userRestaurantService.fetchMenus(
+      this.onFetchSuccess,
+      this.onFetchError
+    )
   }
 
   onCreateMenu = () => {
@@ -34,10 +57,21 @@ export class UserRestaurantComponent implements OnInit {
   }
 
   onMenuCreated = () => {
+    this.menus = this.userRestaurantService.Menus
     this.currentTab = 'Menus'
   }
 
   onCancelCreateMenu = () => {
     this.currentTab = 'Menus'
+  }
+
+  onFetchSuccess = (loading: boolean) => {
+    this.menus = this.userRestaurantService.Menus
+    this.currentTab = loading ? 'Loading' : 'Menus'
+  }
+
+  onFetchError = () => {
+    this.errorMessage = `Désolé, nous n'avons pas pu récupérer les informations`
+    this.currentTab = 'Error'
   }
 }

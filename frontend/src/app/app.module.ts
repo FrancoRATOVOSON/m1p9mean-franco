@@ -29,6 +29,8 @@ import { UserAdminComponent } from './user-admin/user-admin.component'
 import { UserLivreurComponent } from './user-livreur/user-livreur.component'
 import { GraphQLModule } from './graphql.module'
 import { CreateMenuComponent } from './create-menu/create-menu.component'
+import { MyMenuComponent } from './my-menu/my-menu.component'
+import { MyMenusListComponent } from './my-menus-list/my-menus-list.component'
 
 @NgModule({
   declarations: [
@@ -54,6 +56,8 @@ import { CreateMenuComponent } from './create-menu/create-menu.component'
     UserAdminComponent,
     UserLivreurComponent,
     CreateMenuComponent,
+    MyMenuComponent,
+    MyMenusListComponent,
   ],
   imports: [
     BrowserModule,
