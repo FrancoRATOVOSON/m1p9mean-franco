@@ -5,9 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "prebuild": "npm install",
-    "angular": "npm install --legacy-peer-deps @angular-devkit/build-angular@13.3.2 @angular/cli@13.3.2 @angular/compiler-cli@13.3.0",
     "prestart": "ng build",
-    "build": "npm run prebuild && npm run angular && npm run prestart",
+    "build": "npm run prebuild && npm run prestart",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -15,8 +14,10 @@
   "dependencies": {
     "@angular/animations": "~13.3.0",
     "@angular/cdk": "^13.3.3",
+    "@angular/cli": "~13.3.2",
     "@angular/common": "~13.3.0",
     "@angular/compiler": "~13.3.0",
+    "@angular/compiler-cli": "~13.3.0",
     "@angular/core": "~13.3.0",
     "@angular/forms": "~13.3.0",
     "@angular/platform-browser": "~13.3.0",
@@ -33,8 +34,6 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~13.3.2",
-    "@angular/cli": "~13.3.2",
-    "@angular/compiler-cli": "~13.3.0",
     "@types/extract-files": "^8.1.1",
     "@types/jasmine": "~3.10.0",
     "@types/node": "^12.11.1",
