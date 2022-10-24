@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon",
     "build": "tsc",
-    "start": "yarn build && nodemon ./build/index.js"
+    "start": "yarn build && nodemon ./dist/index.js"
   },
   "repository": {
     "type": "git",

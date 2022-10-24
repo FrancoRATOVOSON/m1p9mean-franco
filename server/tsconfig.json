@@ -18,6 +18,7 @@
     "noImplicitAny": false,                            /* Enable error reporting for expressions and declarations with an implied `any` type.. */
     "strictFunctionTypes": false,                      /* When assigning functions, check to ensure parameters and the return values are subtype-compatible. */
     "useUnknownInCatchVariables": false,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "outDir": "./dist/"
   }
 }
