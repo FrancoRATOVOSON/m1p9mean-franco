@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "prebuild": "npm install",
-    "angular": "npm install @angular-devkit/build-angular @angular/cli @angular/compiler-cli",
+    "angular": "npm install --legacy-peer-deps @angular-devkit/build-angular@13.3.2 @angular/cli@13.3.2 @angular/compiler-cli@13.3.0",
     "prestart": "ng build",
     "build": "npm run prebuild && npm run angular && npm run prestart",
     "watch": "ng build --watch --configuration development",
