@@ -1,7 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { baseUrl } from 'src/utils/const'
 import User from '../models/User.model'
+import { environment } from 'src/environments/environment'
+
+const baseUrl = environment.baseUrl
 
 @Injectable({
   providedIn: 'root',

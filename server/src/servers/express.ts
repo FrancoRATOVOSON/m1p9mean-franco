@@ -10,4 +10,6 @@ app.use(bodyParser.json())
 
 app.use('/api/auth', routerAuth)
 
+app.use('/', express.static('public'))
+
 export default app

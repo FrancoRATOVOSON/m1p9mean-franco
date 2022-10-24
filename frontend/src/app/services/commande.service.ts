@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core'
 import Commande from '../models/Commande.model'
 import Menu from '../models/Menu.model'
-
-type ActionOptions = {
-  onFound?: (foundCommande: Commande) => void
-  onNotFound?: () => void
-}
+import { ActionOptions } from '../utils/types'
 
 @Injectable({ providedIn: 'root' })
 export default class CommandeService {

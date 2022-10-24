@@ -31,6 +31,8 @@ import { GraphQLModule } from './graphql.module'
 import { CreateMenuComponent } from './create-menu/create-menu.component'
 import { MyMenuComponent } from './my-menu/my-menu.component'
 import { MyMenusListComponent } from './my-menus-list/my-menus-list.component'
+import { StoreModule } from '@ngrx/store'
+import { commandeReducer } from './states/commades/commande.reducer'
 
 @NgModule({
   declarations: [
@@ -66,6 +68,7 @@ import { MyMenusListComponent } from './my-menus-list/my-menus-list.component'
     HttpClientModule,
     GraphQLModule,
     DragDropModule,
+    StoreModule.forRoot({ commandes: commandeReducer }),
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'fr-FR' }],
   bootstrap: [AppComponent],
