@@ -1,2 +1,2 @@
-release: ./release-tasks.sh
-web: npm start
+release: npm run prestart
+web: yarn start
