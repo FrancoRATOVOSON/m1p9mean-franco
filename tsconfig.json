@@ -19,6 +19,7 @@
     "strictFunctionTypes": false,                      /* When assigning functions, check to ensure parameters and the return values are subtype-compatible. */
     "useUnknownInCatchVariables": false,
     "skipLibCheck": true,
-    "outDir": "./dist/"
+    "outDir": "./dist/",
+    "rootDir": "./src"
   }
 }
