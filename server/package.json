@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "nodemon",
     "build": "tsc",
+    "prestart": "yarn",
     "start": "yarn build && nodemon ./dist/index.js"
   },
   "repository": {
