@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
+import { baseUrl } from 'src/utils/const'
 import User from '../models/User.model'
 
 @Injectable({
@@ -56,7 +57,7 @@ export default class UserService {
   ) {
     this.http
       .post<{ token: string; user: User }>(
-        'http://localhost:8080/api/auth/signup/' + userType,
+        baseUrl + '/api/auth/signup/' + userType,
         formData
       )
       .subscribe({
@@ -79,7 +80,7 @@ export default class UserService {
       .set('motDePasse', motDePasse)
     this.http
       .get<{ token: string; user: User }>(
-        'http://localhost:8080/api/auth/login/' + userType,
+        baseUrl + '/api/auth/login/' + userType,
         { params }
       )
       .subscribe({
