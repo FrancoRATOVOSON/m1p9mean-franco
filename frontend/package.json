@@ -6,7 +6,7 @@
     "start": "ng serve",
     "prebuild": "npm install",
     "prestart": "ng build",
-    "build": "npm run prebuild && npm prestart",
+    "build": "npm run prebuild && npm run prestart",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
