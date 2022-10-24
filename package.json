@@ -4,7 +4,7 @@
   "description": "## Introduction",
   "main": "dist/index.js",
   "scripts": {
-    "start": "npm run build && npm run serve",
+    "start": "npm run serve",
     "install": "npm run --prefix server prestart",
     "build": "npm run --prefix frontend build",
     "serve": "npm run --prefix server start"
